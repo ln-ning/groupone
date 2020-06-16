@@ -3,15 +3,15 @@
   * 首页
   * @type {{name: string, path: string, icon: string}}
   */
- menu.hello = {
-         name: 'hello',
-         path: '/',
-         icon: 'fa fa-tachometer',
-     }
-     /**
-      * 用户信息审核
-      * @type {{name: string, path: string, icon: string}}
-      */
+ //  menu.hello = {
+ //          name: 'hello',
+ //          path: '/',
+ //          icon: 'fa fa-tachometer',
+ //      }
+ /**
+  * 用户信息审核
+  * @type {{name: string, path: string, icon: string}}
+  */
  menu.usersinfo = {
      name: '用户信息审核',
      path: '/usersinfo',
@@ -28,19 +28,19 @@
  };
  let kq = menu.attend.children
  kq.leave = {
-     name: 'leave',
+     name: '请假',
      path: '/leave',
  };
  kq.proval = {
-     name: 'proval',
+     name: '审批',
      path: '/proval',
  };
  kq.allattend = {
-     name: 'allattend',
+     name: '考勤记录',
      path: '/allattend',
  };
  kq.preattend = {
-     name: 'preattend',
+     name: '个人考勤',
      path: '/preattend',
  };
  /**
