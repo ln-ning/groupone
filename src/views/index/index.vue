@@ -14,7 +14,6 @@
         <span class="header-btn" @click="screenfullToggle">
           <i class="fa fa-arrows-alt"></i>
         </span>
-          <button @click="www">5555</button>
         <el-dropdown>
           <span class="header-btn">
             <i class="el-icon-setting"></i>
@@ -128,17 +127,17 @@
         </div>
       </div>
       <div class="app-body">
-        <!-- <NavBar id="nav-bar" v-if="switchTabBar" :style="fixedTabBar && switchTabBar?'position: fixed;top: 0;':''"></NavBar>
-        <div v-else style="margin-top: 50px;"></div>-->
-        <!-- <div
+        <!-- <NavBar id="nav-bar" v-if="switchTabBar" :style="fixedTabBar && switchTabBar?'position: fixed;top: 0;':''"></NavBar> -->
+        <div style="margin-top: 50px;"></div>
+        <div
           id="mainContainer"
           :style="fixedTabBar && switchTabBar?'margin-top: 88px;':''"
           class="main-container"
-        >-->
-        <!--<transition name="fade">-->
-        <!-- <router-view></router-view> -->
-        <!--</transition>-->
-        <!-- </div> -->
+        >
+          <!--<transition name="fade">-->
+          <router-view></router-view>
+          <!--</transition>-->
+        </div>
         <!-- <EuiFooter></EuiFooter> -->
       </div>
     </div>
@@ -159,13 +158,8 @@ export default {
       menu: Menu
     };
   },
-  created() {
-
-  },
+  created() {},
   methods: {
-    www(){
-        console.log(this.menu)
-    },
     NavBarWidth() {
       let navBar = document.getElementById("nav-bar");
       if (!navBar) return;
@@ -214,7 +208,7 @@ export default {
       e.preventDefault();
       if (this.isCollapse) {
         document.body.classList.remove("sidebar-hidden");
-        this.siteName = this.$Config.siteName;
+        //this.siteName = this.$Config.siteName;
         this.isCollapse = false;
       } else {
         document.body.classList.add("sidebar-hidden");
