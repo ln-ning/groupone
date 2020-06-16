@@ -4,118 +4,126 @@ let menu = {};
  * 首页
  * @type {{name: string, path: string, icon: string}}
  */
-menu.home = {
-    name: '首页',
+menu.hello = {
+    name: 'hello',
     path: '/',
     icon: 'fa fa-tachometer',
 };
 
-
 /**
- * 字体图标
+ * 用户信息审核
+ * @type {{name: string, path: string, icon: string}}
+ */
+menu.usersinfo = {
+    name: '用户信息审核',
+    path: '/usersinfo',
+    icon: 'fa fa-tachometer',
+};
+/**
+ * 考勤管理
  * @type {{name: string, icon: string, children: {}}}
  */
-menu.font_icon = {
-    name: '字体图标',
+menu.attend = {
+    name: '考勤管理',
     icon: 'fa fa-th',
     children: {}
 };
-let icon = menu.font_icon.children;
+let kq = menu.attend.children;
 
-icon.font_awesome = {
-    name: 'FontAwesome 4.7',
-    path: '/font_awesome',
-
+kq.leave = {
+    name: 'leave',
+    path: '/leave',
 };
-icon.element_icon = {
-    name: 'ElementIcon',
-    path: '/element_icon',
+kq.proval = {
+    name: 'proval',
+    path: '/proval',
 };
-
+kq.allattend = {
+    name: 'allattend',
+    path: '/allattend',
+};
+kq.preattend = {
+    name: 'preattend',
+    path: '/preattend',
+};
 /**
- * 内容管理
- * @type {{name: string, icon: string, children: {}}}
+ * 部门管理
+ * @type {{name: string, path: string, icon: string}}
  */
-menu.content_manage = {
-    name: '内容管理',
-    icon: 'fa fa-file-text-o',
-    children: {}
+menu.deparadmin = {
+    name: '部门管理',
+    path: '/deparadmin',
+    icon: 'fa fa-tachometer',
 };
-
-let ContentManage = menu.content_manage.children;
-
-ContentManage.post = {
-    name: '文章管理',
-    path: '/post_manage',
-};
-
 /**
- * 用户管理
- * @type {{name: string, icon: string, children: {}}}
+ * 员工管理
+ * @type {{name: string, path: string, icon: string}}
  */
-menu.user_manage = {
-    name: '用户管理',
-    icon: 'fa fa-user-circle-o',
-    children: {}
+menu.staffadmin = {
+    name: '员工管理',
+    path: '/staffadmin',
+    icon: 'fa fa-tachometer',
 };
-let UserManage = menu.user_manage.children;
-
-UserManage.user = {
-    name: '用户列表',
-    path: '/user_manage',
-};
-
-
 /**
- * 分类管理
- * @type {{name: string, icon: string, children: {}}}
+ * 个人资料
+ * @type {{name: string, path: string, icon: string}}
  */
-menu.category_manage = {
-    name: '分类管理',
-    icon: 'fa fa-sitemap',
-    children: {}
+menu.predata = {
+    name: '个人资料',
+    path: '/predata',
+    icon: 'fa fa-tachometer',
 };
-let CategoryManage = menu.category_manage.children;
-
-CategoryManage.category = {
-    name: '分类列表',
-    path: '/category_manage',
+/**
+ * 用户信息
+ * @type {{name: string, path: string, icon: string}}
+ */
+menu.users = {
+    name: '用户信息',
+    path: '/users',
+    icon: 'fa fa-tachometer',
 };
-
-
-
-menu.permission_manage = {
-    name: '权限管理',
-    icon: 'fa fa-qrcode',
-    children: {}
+/**
+ * 公海池
+ * @type {{name: string, path: string, icon: string}}
+ */
+menu.seaspool = {
+    name: '公海池',
+    path: '/seaspool',
+    icon: 'fa fa-tachometer',
 };
-let PermissionManage = menu.permission_manage.children;
-
-PermissionManage.role = {
-    name: '角色管理',
-    path: '/role_manage',
+/**
+ * 业务池
+ * @type {{name: string, path: string, icon: string}}
+ */
+menu.busipool = {
+    name: '业务池',
+    path: '/busipool',
+    icon: 'fa fa-tachometer',
 };
-
-PermissionManage.permission = {
-    name: '权限列表',
-    path: '/permission_list',
+/**
+ * 员工录入
+ * @type {{name: string, path: string, icon: string}}
+ */
+menu.empolentry = {
+    name: '员工录入',
+    path: '/empolentry',
+    icon: 'fa fa-tachometer',
 };
-
-export default menu;
-
-// if (__DEV__) {
-
-//     menu.development_tools = {
-//         name: '开发工具',
-//         icon: 'fa fa-wrench',
-//         children: {}
-//     };
-
-//     let DevelopmentTools = menu.development_tools.children;
-
-//     DevelopmentTools.code = {
-//         name: '构建代码',
-//         path: '/build_code',
-//     };
-
-// }
+/**
+ * 用户组
+ * @type {{name: string, path: string, icon: string}}
+ */
+menu.usergroups = {
+    name: '用户组',
+    path: '/usergroups',
+    icon: 'fa fa-tachometer',
+};
+/**
+ * 修改密码
+ * @type {{name: string, path: string, icon: string}}
+ */
+menu.changepwd = {
+    name: '修改密码',
+    path: '/changepwd',
+    icon: 'fa fa-tachometer',
+};
