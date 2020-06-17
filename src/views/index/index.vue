@@ -1,15 +1,20 @@
 <template>
   <div class="main">
     <div class="header">
+      <!-- logo部分 -->
       <div class="logo">
         <span class="big">OA</span>
         <span class="min">
           <img width="40" style="margin-top: 5px" alt />
         </span>
       </div>
+      <!-- 隐藏左侧 -->
       <span class="header-btn" @click="hiddenSidebar">
         <i class="el-icon-menu"></i>
       </span>
+      <!-- 时间 -->
+      <span class="header-btn">{{time}}</span>
+      <!-- 右边功能 -->
       <div class="right">
         <span class="header-btn" @click="screenfullToggle">
           <i class="fa fa-arrows-alt"></i>
@@ -85,7 +90,9 @@
         </el-dropdown>
       </div>
     </div>
+    <!-- 主体 -->
     <div class="app">
+      <!-- 侧边栏 -->
       <div class="aside">
         <div class="menu">
           <el-menu
@@ -126,18 +133,24 @@
           </div>
         </div>
       </div>
+      <!-- 主体显示部位 -->
       <div class="app-body">
-        <cnavbar id="nav-bar" v-if="switchTabBar" :style="fixedTabBar && switchTabBar?'position: fixed;top: 0;':''"></cnavbar> 
+        <!-- 内部路由导航 -->
+        <cnavbar
+          id="nav-bar"
+          v-if="switchTabBar"
+          :style="fixedTabBar && switchTabBar?'position: fixed;top: 0;':''"
+        ></cnavbar>
         <div v-else style="margin-top: 50px;"></div>
         <div
           id="mainContainer"
           :style="fixedTabBar && switchTabBar?'margin-top: 88px;':''"
           class="main-container"
         >
-          <!--<transition name="fade">-->
+          <!-- 路由内容显示的地方 -->
           <router-view></router-view>
-          <!--</transition>-->
         </div>
+        <!-- 页脚 -->
         <cfooter></cfooter>
       </div>
     </div>
@@ -160,12 +173,36 @@ export default {
       switchTabBar: false,
       // siteName: this.$Config.siteName,
       isCollapse: false,
-      menu: Menu
+      menu: Menu,
+      time: ""
     };
   },
-
-  created() {},
+  created() {
+    this.currentTime();
+  },
   methods: {
+    //页面打开触发定时器
+    currentTime() {
+      setInterval(this.getTime, 500);
+    },
+    //获取时间代码
+    getTime() {
+      var _this = this;
+      let yy = new Date().getFullYear();
+      let mm = new Date().getMonth() + 1;
+      let dd = new Date().getDate();
+      let hh = new Date().getHours();
+      let mf =
+        new Date().getMinutes() < 10
+          ? "0" + new Date().getMinutes()
+          : new Date().getMinutes();
+      let ss =
+        new Date().getSeconds() < 10
+          ? "0" + new Date().getSeconds()
+          : new Date().getSeconds();
+      _this.time = yy + "-" + mm + "-" + dd + " " + hh + ":" + mf + ":" + ss;
+    },
+    //不用怀疑，底下的代码都是借鉴的
     NavBarWidth() {
       let navBar = document.getElementById("nav-bar");
       if (!navBar) return;
