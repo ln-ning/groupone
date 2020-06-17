@@ -1,16 +1,24 @@
 <template>
-  <div>
+  <div class="isadmin">
     <!-- 信息 -->
     <!-- 搜索 -->
     <div>
-      <el-input placeholder="请输入用户昵称！" size="small" style="width: 140px" v-model="name" @clear="searchUser" clearable>
-      </el-input>
-      <el-button @click="searchUser" type="success" icon="el-icon-search" size="small"></el-button>
+      <el-input
+        placeholder="请输入要搜索的员工姓名"
+        size="small"
+        style="width: 200px"
+        v-model="isname"
+        @clear="searchUser"
+        clearable
+      ></el-input>
+      <el-button @click="searchUser" type="primary" icon="el-icon-search" size="small"></el-button>
     </div>
     <!-- 内容 -->
-    <el-table :data="tableData" border ref="table" style="width: 100%">
-      <el-table-column label="照片">
-        <el-image style="width: 100px; height: 100px" props='url'></el-image>
+    <el-table :data="istable" border ref="table" style="width: 100%;" class="itab">
+      <el-table-column label="照片" width="120">
+        <template slot-scope="scope">
+          <img :src="scope.row.url" width="60" height="60" />
+        </template>
       </el-table-column>
       <el-table-column label="姓名" prop="name"></el-table-column>
       <el-table-column label="性别" prop="sex"></el-table-column>
@@ -21,15 +29,30 @@
       <el-table-column label="职位" prop="post"></el-table-column>
       <el-table-column label="操作" width="120">
         <template slot-scope="scope">
-          <el-button type="text" @click="dialogFormVisible = true">查看</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click.native.prevent="deleteRow(scope.$index, tableData)"
-            size="mini" circle></el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-edit"
+            circle
+            @click.native.prevent="editdata(scope.$index,istable)"
+            size="mini"
+          ></el-button>
+          <el-button
+            type="danger"
+            icon="el-icon-delete"
+            @click.native.prevent="deleteRow(scope.$index, istable)"
+            size="mini"
+            circle
+          ></el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <el-pagination :page-size="5" layout="prev, pager, next" :total="total" @current-change="currentChage">
-    </el-pagination>
+    <el-pagination
+      :page-size="5"
+      layout="prev, pager, next"
+      :total="total"
+      @current-change="currentChage"
+    ></el-pagination>
     <!-- 弹窗框 -->
     <el-dialog title="员工信息" :visible.sync="dialogFormVisible">
       <div class="place">
@@ -43,18 +66,18 @@
           <el-form-item label="年龄">
             <el-input v-model="form.age"></el-input>
           </el-form-item>
-          <el-form-item label="身份证号">
+          <!-- <el-form-item label="身份证号">
             <el-input v-model="form.idcard"></el-input>
-          </el-form-item>
+          </el-form-item>-->
           <el-form-item label="民族">
             <el-input v-model="form.nation"></el-input>
           </el-form-item>
-          <el-form-item label="学历">
+          <!-- <el-form-item label="学历">
             <el-input v-model="form.education"></el-input>
           </el-form-item>
           <el-form-item label="地址">
             <el-input v-model="form.address"></el-input>
-          </el-form-item>
+          </el-form-item>-->
           <el-form-item label="电话">
             <el-input v-model="form.cellphone"></el-input>
           </el-form-item>
@@ -74,102 +97,121 @@
 </template>
 
 <script>
-  export default {
-    components: {},
-    props: {},
-    data() {
-      return {
-        name: '',
-        tableData: [{
-            name: '张三',
-            sex: '男',
-            age: 20,
-            nation: '汉',
-            cellphone: '18437930195',
-            department: '人资',
-            post: '员工',
-            url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-          },
-          {
-            name: '张三',
-            sex: '男',
-            age: 20,
-            nation: '汉',
-            cellphone: '18437930195',
-            department: '人资',
-            post: '员工',
-            url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-          },
-          {
-            name: '张三',
-            sex: '男',
-            age: 20,
-            nation: '汉',
-            cellphone: '18437930195',
-            department: '人资',
-            post: '员工',
-            url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-          },
-          {
-            name: '张三',
-            sex: '男',
-            age: 20,
-            nation: '汉',
-            cellphone: '18437930195',
-            department: '人资',
-            post: '员工',
-            url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-          },
-          {
-            name: '李四',
-            sex: '男',
-            age: 20,
-            nation: '汉',
-            cellphone: '18437930195',
-            department: '人资',
-            post: '员工',
-            url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-          }
-        ],
-        total:0,
-        // 弹框
-        dialogFormVisible: false,
-        labelPosition: 'right',
-        form: {
-          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          name: '张三',
-          sex: '男',
-          age: '20',
-          idcard: '410305199906010531',
-          nation: '汉',
-          education: '研究生',
-          address: '河南洛阳',
-          cellphone: '18437930195',
-          department: '人资',
-          post: '员工',
+export default {
+  components: {},
+  props: {},
+  data() {
+    return {
+      isname: "",
+      //员工信息   暂时是死数据
+      tableData: [
+        {
+          name: "张三",
+          sex: "男",
+          age: 20,
+          nation: "汉",
+          cellphone: "18437930195",
+          department: "人资",
+          post: "员工",
+          url:
+            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
         },
-        formLabelWidth: '120px'
+        {
+          name: "李四",
+          sex: "男",
+          age: 20,
+          nation: "汉",
+          cellphone: "18437930195",
+          department: "人资",
+          post: "员工",
+          url:
+            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+        },
+        {
+          name: "王二",
+          sex: "男",
+          age: 20,
+          nation: "汉",
+          cellphone: "18437930195",
+          department: "人资",
+          post: "员工",
+          url:
+            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+        },
+        {
+          name: "赵六",
+          sex: "男",
+          age: 20,
+          nation: "汉",
+          cellphone: "18437930195",
+          department: "人资",
+          post: "员工",
+          url:
+            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+        },
+        {
+          name: "李七",
+          sex: "男",
+          age: 20,
+          nation: "汉",
+          cellphone: "18437930195",
+          department: "人资",
+          post: "员工",
+          url:
+            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+        }
+      ],
+      //搜索之后的数据
+      istable: [],
+      total: 0,
+      // 弹框
+      dialogFormVisible: false,
+      labelPosition: "right",
+      form: [],
+      formLabelWidth: "120px"
+    };
+  },
+  created() {
+    this.istable = this.tableData;
+  },
+  methods: {
+    // 搜索
+    searchUser() {
+      if (this.isname != "") {
+        let all = this.tableData.filter(n => {
+          if (this.isname == n.name) {
+            return n;
+          }
+          //console.log(n.name);
+        });
+        this.istable = all;
+        if (this.istable == "") {
+          this.$layer.msg("抱歉，没有您查找的这个员工");
+        }
+      } else {
+        this.$layer.msg("您输入的为空，请重新输入");
+        setTimeout(() => {
+          this.istable = this.tableData;
+        }, 1000);
       }
     },
-    methods: {
-      // 搜索
-      searchUser() {
-        
-      },
-      // 分页
-      currentChage(){
-
-      },
-      // 删除
-      deleteRow(index, row) {
-        row.splice(index, 1);
-      },
-
+    //编辑
+    editdata(i, e) {
+      this.dialogFormVisible = true;
+      this.form = e[i];
     },
+    // 分页
+    currentChage() {},
+    // 删除
+    deleteRow(index, row) {
+      row.splice(index, 1);
+    }
   }
+};
 </script>
-<style scoped>
-  .el-input {
-    width: 35%;
-  }
+<style scoped lang="less">
+/deep/.el-table .cell {
+  text-align: center;
+}
+@import "./staffadmin.less";
 </style>
