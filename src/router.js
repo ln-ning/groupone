@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import login from './views/login.vue'
+import register from './views/register.vue'
 import index from './views/index/index.vue'
 import hello from './Subcomponent/hello/hello.vue'
 import usersinfo from './Subcomponent/usersinfo/usersinfo.vue'
@@ -22,17 +23,24 @@ import changepwd from './Subcomponent/changepwd/changepwd.vue'
 Vue.use(Router)
 
 export default new Router({
-    mode: 'history',
+    // mode: 'history',
     base: process.env.BASE_URL,
     routes: [{
-            path: '/login',
+            path: '/',
             meta: {
                 title: '登录'
             },
             component: login
         },
         {
-            path: '/',
+            path: '/register',
+            meta: {
+                title: '注册'
+            },
+            component: register
+        },
+        {
+            path: '/index',
             name: 'index',
             meta: {
                 title: 'index'

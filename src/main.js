@@ -8,6 +8,14 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 //字体图标
 import 'font-awesome/css/font-awesome.css'
+//公用方法
+import funct from './function/index'
+//类UI弹窗
+import layer from 'vue-layer'
+import 'vue-layer/lib/vue-layer.css'
+Vue.prototype.$layer = layer(Vue)
+
+Vue.prototype.$func = funct
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 

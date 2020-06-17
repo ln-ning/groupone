@@ -3,12 +3,12 @@
     <div class="login-form">
       <div class="login-header">
         <img src="../assets/bglogo.png" width="100" height="100" alt />
-        <p>你小子，简直骚的不像话</p>
+        <p>欢迎来到本系统</p>
       </div>
       <el-input
-        placeholder="请输入账号"
+        placeholder="请输入手机号"
         suffix-icon="fa fa-user"
-        v-model="userame"
+        v-model="unum"
         style="margin-bottom: 18px"
       ></el-input>
 
@@ -18,14 +18,16 @@
         v-model="pwd"
         type="password"
         style="margin-bottom: 18px"
-        @keyup.native.enter="login"
+      ></el-input>
+      <el-input
+        placeholder="请确认密码"
+        suffix-icon="fa fa-keyboard-o"
+        v-model="repwd"
+        type="password"
+        style="margin-bottom: 18px"
       ></el-input>
 
-      <el-button type="primary" style="width: 100%;margin-bottom: 18px" @click.native="login">登录</el-button>
-      <div class="ilogin">
-        <p class="ip" @click="toreg">没有账号？去注册</p>
-        <p>找回密码</p>
-      </div>
+      <el-button type="primary" style="width: 100%;margin-bottom: 18px" @click.native="login">确认注册</el-button>
     </div>
   </div>
 </template>
@@ -36,16 +38,17 @@ export default {
   props: {},
   data() {
     return {
-      userame: "",
-      pwd: ""
+      unum: "",
+      pwd: "",
+      repwd: ""
     };
   },
   methods: {
     login() {
-      this.$router.push("/index").catch(err => {});
-    },
-    toreg() {
-      this.$router.push("/register").catch(err => {});
+      console.log(this.unum);
+      console.log(this.pwd);
+      console.log(this.repwd);
+      this.$router.push("/login").catch(err => {});
     }
   }
 };
@@ -81,11 +84,5 @@ export default {
     }
   }
 }
-.ilogin {
-  display: flex;
 
-  .ip {
-    margin-right: 48%;
-  }
-}
 </style>

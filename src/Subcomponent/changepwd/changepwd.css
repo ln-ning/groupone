@@ -1,0 +1,25 @@
+.ipwd {
+  background-color: #fff;
+  margin: 10px 20px 0 10px;
+  padding: 0 10px 30px 10px;
+}
+.ipwd p {
+  border-bottom: 1px solid #f2f2f2;
+  margin: 0;
+  padding: 16px 0;
+}
+.ipwd .icpwd {
+  padding: 10px 20px;
+}
+.ipwd .icpwd span {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+  margin-right: 20px;
+}
+.ipwd .icpwd .el-input {
+  width: 200px;
+}
+.ipwd button {
+  margin: 10px 0 0 140px ;
+}

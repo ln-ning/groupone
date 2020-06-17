@@ -1,6 +1,6 @@
 <template>
 <div>
-    底部
+    2020-06-16
 </div>
 </template>
 
@@ -15,4 +15,5 @@ export default {
 }
 </script>
 <style scoped>
+
 </style>

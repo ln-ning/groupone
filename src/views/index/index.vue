@@ -127,8 +127,8 @@
         </div>
       </div>
       <div class="app-body">
-        <!-- <NavBar id="nav-bar" v-if="switchTabBar" :style="fixedTabBar && switchTabBar?'position: fixed;top: 0;':''"></NavBar> -->
-        <div style="margin-top: 50px;"></div>
+        <cnavbar id="nav-bar" v-if="switchTabBar" :style="fixedTabBar && switchTabBar?'position: fixed;top: 0;':''"></cnavbar> 
+        <div v-else style="margin-top: 50px;"></div>
         <div
           id="mainContainer"
           :style="fixedTabBar && switchTabBar?'margin-top: 88px;':''"
@@ -138,7 +138,7 @@
           <router-view></router-view>
           <!--</transition>-->
         </div>
-        <!-- <EuiFooter></EuiFooter> -->
+        <cfooter></cfooter>
       </div>
     </div>
   </div>
@@ -146,8 +146,13 @@
 
 <script>
 import Menu from "../../navjs/index";
+import cfooter from "../../components/cfooter/cfooter";
+import cnavbar from "../../components/cnavbar/cnavbar";
 export default {
-  components: {},
+  components: {
+    cnavbar,
+    cfooter
+  },
   props: {},
   data() {
     return {
@@ -158,6 +163,7 @@ export default {
       menu: Menu
     };
   },
+
   created() {},
   methods: {
     NavBarWidth() {
@@ -249,9 +255,6 @@ export default {
     setTimeout(() => {
       this.NavBarWidth();
     }, 1000);
-  },
-  components: {
-    // EuiFooter, NavBar
   }
 };
 </script>
