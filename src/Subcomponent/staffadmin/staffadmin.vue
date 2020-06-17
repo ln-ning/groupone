@@ -66,18 +66,9 @@
           <el-form-item label="年龄">
             <el-input v-model="form.age"></el-input>
           </el-form-item>
-          <!-- <el-form-item label="身份证号">
-            <el-input v-model="form.idcard"></el-input>
-          </el-form-item>-->
           <el-form-item label="民族">
             <el-input v-model="form.nation"></el-input>
           </el-form-item>
-          <!-- <el-form-item label="学历">
-            <el-input v-model="form.education"></el-input>
-          </el-form-item>
-          <el-form-item label="地址">
-            <el-input v-model="form.address"></el-input>
-          </el-form-item>-->
           <el-form-item label="电话">
             <el-input v-model="form.cellphone"></el-input>
           </el-form-item>
