@@ -375,7 +375,7 @@ export default {
     },
     //编辑
     editdata(i, e) {
-      this.dialogFormVisible = true;
+      this.edit = true;
       this.form = e[i];
     },
     // 分页

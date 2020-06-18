@@ -2,7 +2,7 @@
   <div class="body">
     <div class="button">
       <div class="button-left">
-        <el-button type="primary">+</el-button>
+        <el-button type="primary" size="small" icon="el-icon-plus" @click="addcont = true"></el-button>
       </div>
       <div class="button-right">
         <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd"></el-date-picker>-
@@ -22,15 +22,62 @@
           <template slot-scope="scope">
             <el-button type="warning" @click="handleEdit(scope.$index, scope.row)">待审核</el-button>
             <el-button type="success" v-show="is_active">通过</el-button>
-            <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
           </template>
         </el-table-column>
         <el-table-column label="操作" class="table_i">
-          <i class="el-icon-edit" style="background:#FFB800"></i>
-          <i class="el-icon-delete" style=" background: #f00;"></i>
+          <template slot-scope="scope">
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              circle
+              @click.native.prevent="editdata(scope.$index,tableData)"
+              size="mini"
+            ></el-button>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              @click.native.prevent="del(scope.$index, tableData)"
+              size="mini"
+              circle
+            ></el-button>
+          </template>
         </el-table-column>
       </el-table>
+    </div>
+    <!-- //弹框 -->
+    <div class="alert">
+      <el-dialog title="请假申请" :visible.sync="addcont">
+        <div class="place">
+          <el-form :label-position="labelPosition">
+            <el-form-item label="开始时间">
+              <el-input v-model="again"></el-input>
+            </el-form-item>
+            <el-form-item label="结束时间">
+              <el-input v-model="end"></el-input>
+            </el-form-item>
+            <el-form-item label="天数">
+              <el-input v-model="allday"></el-input>
+            </el-form-item>
+            <el-form-item label="类型">
+              <el-select v-model="zip" placeholder="请选择">
+                <el-option
+                  v-for="item in typelist"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="原因">
+              <el-input v-model="be" type="textarea" :rows="2"></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="addemp" type="primary">添 加</el-button>
+          <el-button @click="addcont = false">取 消</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -45,6 +92,7 @@ export default {
       //button
       time1: "",
       time2: "",
+      day: "",
       //table
       is_active: false,
       tableData: [
@@ -84,11 +132,72 @@ export default {
           zip: "请假",
           address: "上海市普陀区金沙江路 1518 弄"
         }
-      ]
+      ],
+      //弹框
+     
+      again: "",
+      end: "",
+      allday: "",
+      zip: "",
+      be: "",
+      addcont: false,
+      typelist: [
+        {
+          value: "请假",
+          label: "请假"
+        },
+        {
+          value: "外出",
+          label: "外出"
+        }
+      ],
+      //编辑
+      
+      dialogFormVisible: false,
+      addcont: false,
+      labelPosition: "right",
+      formLabelWidth: "120px"
     };
   },
   methods: {
-    handleEdit(index, row) {}
+    handleEdit(index, row) {},
+    add() {
+      this.layer.open({
+        type: 2,
+
+        title: "layer 测试",
+
+        area: "auto",
+
+        btn: "确定",
+
+        shade: 0.4,
+
+        content: {
+          content: Test, // Test为要打开的子组件Name
+
+          parent: this
+        }
+      });
+    },
+    //申请外出
+    addemp() {
+      let obj = {
+        again: this.again,
+        end: this.end,
+        allday: this.allday,
+        zip: this.zip,
+        be: this.be
+      };
+      console.log(obj);
+      this.tableData.push(obj);
+      this.addcont = false;
+    },
+ 
+    //删除
+    del(index, row) {
+      row.splice(index, 1);
+    }
   }
 };
 </script>
