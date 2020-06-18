@@ -8,7 +8,7 @@
       <el-input
         placeholder="请输入账号"
         suffix-icon="fa fa-user"
-        v-model="userame"
+        v-model="usernum"
         style="margin-bottom: 18px"
       ></el-input>
 
@@ -31,18 +31,33 @@
 </template>
 
 <script>
+import { logins } from "../network/login";
 export default {
   components: {},
   props: {},
   data() {
     return {
-      userame: "",
+      usernum: "",
       pwd: ""
     };
   },
   methods: {
     login() {
-      this.$router.push("/index").catch(err => {});
+      let params = {
+        g_sjh: this.usernum,
+        g_mm: this.pwd
+      };
+      //console.log(params);
+      logins(params).then(res => {
+        //console.log(res.data.data.uid);
+        this.$store.commit("getuid", res.data.data.uid);
+        if (res.data.status == 1) {
+          this.$router.push("/index").catch(err => {});
+        } else {
+          this.$layer.msg(res.data.info);
+          this.pwd = "";
+        }
+      });
     },
     toreg() {
       this.$router.push("/register").catch(err => {});

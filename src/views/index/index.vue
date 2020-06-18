@@ -80,7 +80,7 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.native="$router.push('/personal')">
+            <el-dropdown-item @click.native="$router.push('/index')">
               <i style="padding-right: 8px" class="fa fa-cog"></i>个人中心
             </el-dropdown-item>
             <el-dropdown-item @click.native="logout">
@@ -179,6 +179,7 @@ export default {
   },
   created() {
     this.currentTime();
+    console.log("用户id为"+this.$store.state.uid)
   },
   methods: {
     //页面打开触发定时器

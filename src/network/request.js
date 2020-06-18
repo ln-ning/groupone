@@ -11,7 +11,7 @@ export function mywin(config) {
 //注册实例2
 export function mylin(config) {
     const merequest = axios.create({
-        baseURL: "http://api.switchyl.online",
+        baseURL: "http://lmq.switchyl.online",
         timeout: 5000
     })
     return merequest(config)

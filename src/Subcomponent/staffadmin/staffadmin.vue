@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import { admin } from "../../network/staffadmin";
 export default {
   components: {},
   props: {},
@@ -163,7 +164,15 @@ export default {
     };
   },
   created() {
-    this.istable = this.tableData;
+    let params = {
+      //uid: this.$store.state.uid
+      uid: 1
+    };
+    console.log(params);
+    // admin(params).then(res => {
+    //   console.log(res.data);
+    // });
+    // this.istable = this.tableData;
   },
   methods: {
     // 搜索
