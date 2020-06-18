@@ -3,19 +3,19 @@ import {
     mylin
 } from './request'
 //import qs from "qs";
-//员工列表
-export function admin(qqq) {
+//获取部门/职位
+export function deparadmin(qqq) {
     return mylin({
         // method: 'post',
-        url: '/api/yg/yg?uid=' + qqq,
-        //data: qqq
+        url: '/api/bm/index',
+        data: qqq
     })
 }
-//搜索员工
-export function seaadmin(www) {
+//修改部门/职位
+export function addadmins(www) {
     return mylin({
         method: 'post',
-        url: '/api/yg/yg',
+        url: '/api/bm/add',
         data: www
     })
 }

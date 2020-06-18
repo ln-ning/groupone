@@ -110,5 +110,5 @@
   }
 </script>
 <style scoped>
-  @import './predata.css'
+  @import './predata.css';
 </style>

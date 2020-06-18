@@ -48,7 +48,7 @@
   * @type {{name: string, path: string, icon: string}}
   */
  menu.deparadmin = {
-     name: '部门管理',
+     name: '部门/职位管理',
      path: '/deparadmin',
      icon: 'fa fa-tachometer',
  };

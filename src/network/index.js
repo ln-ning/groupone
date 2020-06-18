@@ -1,15 +1,13 @@
 //导入request
-import { mywin } from './request'
-
-
-export function getBanner() {
-    return mywin({
-        url: '/banner/read',
-        params: {
-            //数据 条数
-            pagesize: 50000,
-            //页数
-            pageindex: 1
-        }
+import {
+    mylin
+} from './request'
+//import qs from "qs";
+//手机号验证
+export function cindex(i) {
+    return mylin({
+        method: 'post',
+        url: '/api/index/index',
+        data: i
     })
 }

@@ -148,7 +148,7 @@
           class="main-container"
         >
           <!-- 路由内容显示的地方 -->
-          <router-view></router-view>
+          <router-view v-if="isRouterAlive"></router-view>
         </div>
         <!-- 页脚 -->
         <cfooter></cfooter>
@@ -158,6 +158,7 @@
 </template>
 
 <script>
+import { cindex } from "../../network/index";
 import Menu from "../../navjs/index";
 import cfooter from "../../components/cfooter/cfooter";
 import cnavbar from "../../components/cnavbar/cnavbar";
@@ -167,21 +168,41 @@ export default {
     cfooter
   },
   props: {},
+  provide() {
+    //父组件中通过provide来提供变量，在子组件中通过inject来注入变量。
+    return {
+      reload: this.reload
+    };
+  },
   data() {
     return {
+      isRouterAlive: true,
       fixedTabBar: false,
       switchTabBar: false,
       // siteName: this.$Config.siteName,
       isCollapse: false,
       menu: Menu,
-      time: ""
+      time: "",
+      ilist: []
     };
   },
   created() {
+    let params = {
+      uid: this.$store.state.uid
+    };
+    cindex(params).then(res => {
+     // console.log(res.data);
+    });
     this.currentTime();
-    console.log("用户id为"+this.$store.state.uid)
+    console.log("用户id为" + this.$store.state.uid);
   },
   methods: {
+    reload() {
+      this.isRouterAlive = false; //先关闭，
+      this.$nextTick(function() {
+        this.isRouterAlive = true; //再打开
+      });
+    },
     //页面打开触发定时器
     currentTime() {
       setInterval(this.getTime, 500);

@@ -17,21 +17,21 @@
     <el-table :data="istable" border ref="table" style="width: 100%;" class="itab">
       <el-table-column label="照片" width="120">
         <template slot-scope="scope">
-          <img :src="scope.row.url" width="60" height="60" />
+          <img :src="'http://'+scope.row.g_zp" width="60" height="60" />
         </template>
       </el-table-column>
-      <el-table-column label="姓名" prop="name"></el-table-column>
-      <el-table-column label="性别" prop="sex"></el-table-column>
-      <el-table-column label="年龄" prop="age"></el-table-column>
-      <el-table-column label="民族" prop="nation"></el-table-column>
-      <el-table-column label="手机号" prop="cellphone"></el-table-column>
-      <el-table-column label="部门" prop="department"></el-table-column>
-      <el-table-column label="职位" prop="post"></el-table-column>
+      <el-table-column label="姓名" prop="g_name"></el-table-column>
+      <el-table-column label="性别" prop="g_xb"></el-table-column>
+      <el-table-column label="年龄" prop="g_nl"></el-table-column>
+      <el-table-column label="民族" prop="g_mz"></el-table-column>
+      <el-table-column label="手机号" prop="g_sjh"></el-table-column>
+      <el-table-column label="部门" prop="bm"></el-table-column>
+      <el-table-column label="职位" prop="zw"></el-table-column>
       <el-table-column label="操作" width="120">
         <template slot-scope="scope">
           <el-button
             type="primary"
-            icon="el-icon-edit"
+            icon="el-icon-search"
             circle
             @click.native.prevent="editdata(scope.$index,istable)"
             size="mini"
@@ -58,25 +58,28 @@
       <div class="place">
         <el-form :model="form" :label-position="labelPosition" label-width="100px">
           <el-form-item label="姓名">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.g_name"></el-input>
+          </el-form-item>
+          <el-form-item label="照片" width="120" v-model="form.g_zp">
+            <img :src="'http://'+form.g_zp" width="100" height="100" />
           </el-form-item>
           <el-form-item label="性别">
-            <el-input v-model="form.sex"></el-input>
+            <el-input v-model="form.g_xb"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
-            <el-input v-model="form.age"></el-input>
+            <el-input v-model="form.g_nl"></el-input>
           </el-form-item>
           <el-form-item label="民族">
-            <el-input v-model="form.nation"></el-input>
+            <el-input v-model="form.g_mz"></el-input>
           </el-form-item>
           <el-form-item label="电话">
-            <el-input v-model="form.cellphone"></el-input>
+            <el-input v-model="form.g_sjh"></el-input>
           </el-form-item>
           <el-form-item label="所属部门">
-            <el-input v-model="form.department"></el-input>
+            <el-input v-model="form.bm"></el-input>
           </el-form-item>
           <el-form-item label="职位">
-            <el-input v-model="form.post"></el-input>
+            <el-input v-model="form.zw"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -88,7 +91,7 @@
 </template>
 
 <script>
-import { admin } from "../../network/staffadmin";
+import { admin, seaadmin } from "../../network/staffadmin";
 export default {
   components: {},
   props: {},
@@ -165,18 +168,24 @@ export default {
   },
   created() {
     let params = {
-      //uid: this.$store.state.uid
-      uid: 1
+      uid: this.$store.state.uid
     };
-    console.log(params);
-    // admin(params).then(res => {
-    //   console.log(res.data);
-    // });
-    // this.istable = this.tableData;
+    //console.log(params);
+    admin(1).then(res => {
+      console.log(res.data);
+      this.istable = res.data.staff;
+    });
   },
   methods: {
     // 搜索
     searchUser() {
+      // let params = {
+      //   g_name: this.isname
+      // };
+      // console.log(params);
+      // seaadmin("张三").then(res => {
+      //   console.log(res);
+      // });
       if (this.isname != "") {
         let all = this.tableData.filter(n => {
           if (this.isname == n.name) {
@@ -191,11 +200,11 @@ export default {
       } else {
         this.$layer.msg("您输入的为空，请重新输入");
         setTimeout(() => {
-          this.istable = this.tableData;
+         // this.istable = this.istable;
         }, 1000);
       }
     },
-    //编辑
+    //查看
     editdata(i, e) {
       this.dialogFormVisible = true;
       this.form = e[i];

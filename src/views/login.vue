@@ -49,7 +49,7 @@ export default {
       };
       //console.log(params);
       logins(params).then(res => {
-        //console.log(res.data.data.uid);
+        console.log(res);
         this.$store.commit("getuid", res.data.data.uid);
         if (res.data.status == 1) {
           this.$router.push("/index").catch(err => {});
