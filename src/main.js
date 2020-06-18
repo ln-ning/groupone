@@ -6,7 +6,7 @@ import store from './store'
 import ElementUI from 'element-ui';
 //import '../node_modules/element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/index.css';
-//字体图标
+//字体图标c
 import 'font-awesome/css/font-awesome.css'
 //公用方法
 import funct from './function/index'
