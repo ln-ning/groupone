@@ -1,224 +1,328 @@
 <template>
-  <div>
-    <i style="font-size: 40px; color: #009688;" class="fa fa-plus-square fa-5" aria-hidden="true" @click="add"></i>
-    <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="id" label="id" type="index"
-      width="50">
-      </el-table-column>
-      <el-table-column prop="name" label="姓名">
-      </el-table-column>
-      <el-table-column prop="radio" label="性别">
-      </el-table-column>
-      <el-table-column prop="age" label="年龄">
-      </el-table-column>
-      <el-table-column prop="cellphone" label="手机号">
-      </el-table-column>
-      <el-table-column prop="chat" label="微信">
-      </el-table-column>
-      <el-table-column prop="QQ" label="QQ">
-      </el-table-column>
-      <el-table-column prop="time" label="创建时间">
-      </el-table-column>
-      <el-table-column prop="founder" label="创始人">
-      </el-table-column>
-      <el-table-column prop="operation" label="操作">
+  <div class="user-list">
+    <el-button type="primary" icon="el-icon-plus" @click="appendLog = true"></el-button>
+    <el-table :data="usersData" border ref="table" style="width: 100%" >
+      <el-table-column prop="name" label="姓名" align="center"></el-table-column>
+      <el-table-column prop="tp" label="性别" align="center"></el-table-column>
+      <el-table-column prop="age" label="年龄" align="center"></el-table-column>
+      <el-table-column prop="cellphone" label="手机号" align="center"></el-table-column>
+      <el-table-column prop="place" label="地址" align="center"></el-table-column>
+      <el-table-column prop="wx" label="微信" align="center"></el-table-column>
+      <el-table-column prop="QQ" label="QQ" align="center"></el-table-column>
+      <el-table-column prop="time" label="创建时间" align="center">2020-06-15</el-table-column>
+      <el-table-column prop="site" label="创建人" align="center">admin</el-table-column>
+      <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <el-button @click="see(scope.row)" style="background: #009688; color: #fff;" size="small" circle><i
-              class="fa fa-search" aria-hidden="true"></i></el-button>
-          <el-button type="primary" icon="el-icon-edit" @click="edit(scope.row)" size="mini" circle></el-button>
+          <el-button
+            class="user_look"
+            type="primary"
+            icon="el-icon-search"
+            size="mini"
+            @click="look(scope.$index,scope.row)"
+          ></el-button>
+          <el-button
+            class="user_edit"
+            type="primary"
+            icon="el-icon-edit"
+            size="mini"
+            @click="eidt(scope.$index,scope.row)"
+          ></el-button>
         </template>
       </el-table-column>
     </el-table>
-    <!-- form弹框 -->
-    <!-- 添加信息 -->
-    <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
+    <el-dialog width="500px" title="添加用户" class="allTable" :visible.sync="appendLog">
+      <el-form :label-position="labelPosition" label-width="80px" :model="form">
         <el-form-item label="姓名">
-          <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
+          <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-radio v-model="form.radio" label="男">男</el-radio>
-          <el-radio v-model="form.radio" label="女">女</el-radio>
+          <el-radio-group v-model="form.tp">
+            <el-radio label="男"></el-radio>
+            <el-radio label="女"></el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-form-item label="年龄">
-          <el-input v-model="form.age" placeholder="请输入年龄"></el-input>
+          <el-input v-model="form.age"></el-input>
         </el-form-item>
         <el-form-item label="地址">
-          <el-input v-model="form.address" placeholder="请输入地址"></el-input>
+          <el-input v-model="form.place"></el-input>
         </el-form-item>
         <el-form-item label="电话">
-          <el-input v-model="form.cellphone" placeholder="请输入电话"></el-input>
+          <el-input v-model="form.cellphone"></el-input>
         </el-form-item>
         <el-form-item label="微信">
-          <el-input v-model="form.chat" placeholder="请输入微信"></el-input>
+          <el-input v-model="form.wx"></el-input>
         </el-form-item>
         <el-form-item label="QQ">
-          <el-input v-model="form.QQ" placeholder="请输入QQ号"></el-input>
+          <el-input v-model="form.QQ"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button style="margin-left:180px" type="primary" @click="sub">提交</el-button>
+          <el-button style="margin-left:20px" @click="dialogTableVisible = false">取消</el-button>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="clickItem" size="mini">添加</el-button>
-        <el-button @click="dialogFormVisible = false" size="mini">取 消</el-button>
-      </div>
     </el-dialog>
-    <!-- 查看信息 -->
-    <el-dialog title="用户信息" :visible.sync="dialogFormVisible2">
-      <el-form :model="getform" label-width="100px">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="用户信息" name="first">
-            <el-form-item label="用户ID">
-              <el-input v-model="getform.id"></el-input>
-            </el-form-item>
+    <el-dialog width="500px" title="用户信息" class="allTable" :visible.sync="dialogTableVisible">
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="用户信息" name="first">
+          <el-form :label-position="labelPosition" label-width="80px" :model="lookform">
             <el-form-item label="姓名">
-              <el-input v-model="getform.name"></el-input>
+              <el-input :value="lookform.name"></el-input>
             </el-form-item>
             <el-form-item label="性别">
-              <el-input v-model="getform.radio"></el-input>
+              <el-radio-group v-model="lookform.tp">
+                <el-radio label="男"></el-radio>
+                <el-radio label="女"></el-radio>
+              </el-radio-group>
             </el-form-item>
             <el-form-item label="年龄">
-              <el-input v-model="getform.age"></el-input>
+              <el-input :value="lookform.age"></el-input>
             </el-form-item>
             <el-form-item label="地址">
-              <el-input v-model="getform.address"></el-input>
+              <el-input :value="lookform.place"></el-input>
             </el-form-item>
             <el-form-item label="电话">
-              <el-input v-model="getform.cellphone"></el-input>
+              <el-input :value="lookform.cellphone"></el-input>
             </el-form-item>
             <el-form-item label="微信">
-              <el-input v-model="getform.chat"></el-input>
+              <el-input :value="lookform.wx"></el-input>
             </el-form-item>
             <el-form-item label="QQ">
-              <el-input v-model="getform.QQ"></el-input>
+              <el-input :value="lookform.QQ"></el-input>
             </el-form-item>
             <el-form-item label="创建人">
-              <el-input v-model="getform.founder"></el-input>
+              <el-input :value="site"></el-input>
             </el-form-item>
             <el-form-item label="创建时间">
-              <el-input v-model="getform.time"></el-input>
+              <el-input :value="time"></el-input>
             </el-form-item>
             <el-form-item label="所属">
-              <el-input v-model="getform.post"></el-input>
+              <el-input :value="lookform.type"></el-input>
             </el-form-item>
-          </el-tab-pane>
-          <el-tab-pane label="成交产品" name="second">
-            <el-table :data="getTable" style="width: 100%">
-              <el-table-column prop="product" label="产品">
-              </el-table-column>
-              <el-table-column prop="price" label="单价">
-              </el-table-column>
-              <el-table-column prop="totalprice" label="总价">
-              </el-table-column>
-              <el-table-column prop="number" label="数量">
-              </el-table-column>
-              <el-table-column prop="Clincher" label="成交人">
-              </el-table-column>
-            </el-table>
-          </el-tab-pane>
-          <el-tab-pane label="跟踪进程" name="third"></el-tab-pane>
-        </el-tabs>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible2 = false">取 消</el-button>
-      </div>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="成交商品" name="second">
+          <el-table :data="subData" style="width: 100%">
+            <el-table-column prop="product" label="产品" width="90px"></el-table-column>
+            <el-table-column prop="price" label="单价" width="90px"></el-table-column>
+            <el-table-column prop="sum" label="总价" width="90px"></el-table-column>
+            <el-table-column prop="num" label="数量" width="90px"></el-table-column>
+            <el-table-column prop="name" label="成交人" width="90px"></el-table-column>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="跟踪进程" name="third">
+          <el-timeline class="timeline">
+            <el-timeline-item
+              v-for="(activity, index) in activities"
+              :key="index"
+              :color="activity.color"
+              :timestamp="activity.timestamp"
+            >{{activity.content}}</el-timeline-item>
+          </el-timeline>
+        </el-tab-pane>
+      </el-tabs>
     </el-dialog>
-    <!-- 修改信息 -->
-    <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible1">
-      <el-form :model="form1">
+    <el-dialog width="500px" title="用户信息" class="allTable" :visible.sync="edit">
+      <el-form :label-position="labelPosition" label-width="80px" :model="editForm" :index="index">
         <el-form-item label="姓名">
-          <el-input v-model="form1.name"></el-input>
+          <el-input v-model="editForm.name"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-radio v-model="form1.radio" label="男">男</el-radio>
-          <el-radio v-model="form1.radio" label="女">女</el-radio>
+          <el-radio-group v-model="editForm.tp">
+            <el-radio label="男"></el-radio>
+            <el-radio label="女"></el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-form-item label="年龄">
-          <el-input v-model="form1.age"></el-input>
+          <el-input v-model="editForm.age"></el-input>
         </el-form-item>
         <el-form-item label="地址">
-          <el-input v-model="form1.address"></el-input>
+          <el-input v-model="editForm.place"></el-input>
         </el-form-item>
         <el-form-item label="电话">
-          <el-input v-model="form1.cellphone"></el-input>
+          <el-input v-model="editForm.cellphone"></el-input>
         </el-form-item>
         <el-form-item label="微信">
-          <el-input v-model="form1.chat"></el-input>
+          <el-input v-model="editForm.wx"></el-input>
         </el-form-item>
         <el-form-item label="QQ">
-          <el-input v-model="form1.QQ"></el-input>
+          <el-input v-model="editForm.QQ"></el-input>
+        </el-form-item>
+        <el-form-item label="创建人">
+          <el-input v-model="site"></el-input>
+        </el-form-item>
+        <el-form-item label="创建时间">
+          <el-input v-model="time"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button style="margin-left:160px" type="primary" @click="subChange(index)">提交</el-button>
+          <el-button @click="edit= false">取消</el-button>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="clickChange" size="mini">修改</el-button>
-        <el-button @click="dialogFormVisible1 = false" size="mini">取 消</el-button>
-      </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-  export default {
-    components: {},
-    props: {},
-    data() {
-      return {
-        tableData: [],
-        // 添加信息
-        dialogFormVisible: false,
-        form: {},
-        // 修改信息
-        dialogFormVisible1: false,
-        form1: {},
-        // 查看
-        dialogFormVisible2: false,
-        getform: {},
-        activeName: 'first',
-        getTable: []
-      }
-    },
-    methods: {
-      // 添加
-      add() {
-        this.dialogFormVisible = true;
-        
+export default {
+  data() {
+    return {
+      params: {
+        name: ""
       },
-      clickItem() {
-        this.dialogFormVisible = false
-        let obj = {
-          name: this.form.name,
-          radio: this.form.radio,
-          age: this.form.age,
-          address:this.form.address,
-          cellphone: this.form.cellphone,
-          chat: this.form.chat,
-          QQ: this.form.QQ
+      form: {
+        id: "",
+        name: "",
+        nickname: "",
+        age: "",
+        cellphone: "",
+        QQ: "",
+        wx: "",
+        place: "",
+        tp: ""
+      },
+      subData: [
+        {
+          product: "火箭",
+          price: "199",
+          sum: "398",
+          num: "2",
+          name: "张三"
+        },
+        {
+          product: "飞船",
+          price: "199",
+          sum: "398",
+          num: "2",
+          name: "李四"
         }
-        this.tableData.push(obj);
-        console.log(this.tableData)
-      },
-      // 查看信息
-      see(row) {
-        console.log(row);
-        this.dialogFormVisible2 = true
-        this.getform = row;
-        // this.getform=this.form
-
-      },
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
-      // 编辑
-      edit(row) {
-        this.dialogFormVisible1 = true
-        this.form1 = row
-      },
-      // 确认修改
-      clickChange() {
-        this.tableData==this.form1
-        this.dialogFormVisible1 = false
-      },
+      ],
+      usersData: [
+        {
+          id: 1,
+          name: "张三",
+          nickname: "管理员",
+          age: "19",
+          cellphone: "151178xxxx",
+          QQ: "2222222",
+          wx: "111111",
+          place: "洛职",
+          tp: "男",
+          active: 1
+        },
+        {
+          id: 2,
+          name: "李四",
+          nickname: "森林",
+          age: "20",
+          cellphone: "151178xxxx",
+          QQ: "111111",
+          wx: "2222222",
+          place: "洛职",
+          tp: "女",
+          active: 0
+        }
+      ],
+      lookform: {},
+      activities: [
+        {
+          content: "这是一个进程",
+          timestamp: "张三提交于：2018-04-12 20:46",
+          color: "#0bbd87"
+        },
+        {
+          content: "这是一个进程",
+          timestamp: "张三提交于：2018-04-12 20:46",
+          color: "#0bbd87"
+        },
+        {
+          content: "这是一个进程",
+          timestamp: "张三提交于：2018-04-12 20:46",
+          color: "#0bbd87"
+        },
+        {
+          content: "这是一个进程",
+          timestamp: "张三提交于：2018-04-12 20:46",
+          color: "#0bbd87"
+        }
+      ],
+      editForm: {},
+      labelPosition: "left",
+      dialogTableVisible: false,
+      activeIndex: "1",
+      activeIndex2: "1",
+      activeName: "first",
+      appendLog: false,
+      time: "2020-06-15",
+      site: "admin",
+      edit: false,
+      index: ""
+    };
+  },
+  methods: {
+    look(a, b) {
+      this.dialogTableVisible = true;
+      this.lookform = b;
     },
-  }
+    sub() {
+      this.appendLog = false;
+      this.usersData.push(this.form);
+      console.log(this.usersData);
+    },
+    eidt(index, obj) {
+      this.edit = true;
+      this.editForm = this.usersData[index];
+      this.index = index;
+    },
+    subChange(index) {
+      this.edit = false;
+      this.usersData.splice(index, 1, this.editForm);
+    }
+  },
+  components: {}
+};
 </script>
-<style scoped>
-  @import './users.css'
+<style lang="less">
+.el-button + .el-button {
+  margin-left: 0px;
+}
+.el-menu-demo {
+  display: block;
+  width: 500px;
+}
+.allTable {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: Center;
+  overflow: hidden;
+  .el-dialog {
+    margin: 20 auto !important;
+    height: 70%;
+    overflow: hidden;
+    .el-dialog__body {
+      position: absolute;
+      left: 0;
+      top: 54px;
+      bottom: 0;
+      right: 0;
+      padding: 0px 20px;
+      z-index: 1;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+  }
+}
+.timeline {
+  margin-left: 20px;
+}
+.user_edit {
+  background: rgb(255, 184, 0);
+  border: none;
+}
+.user_look {
+  border: none;
+}
 </style>

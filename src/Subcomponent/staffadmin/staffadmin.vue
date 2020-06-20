@@ -17,7 +17,7 @@
     <el-table :data="istable" border ref="table" style="width: 100%;" class="itab">
       <el-table-column label="照片" width="120">
         <template slot-scope="scope">
-          <img :src="'http://'+scope.row.g_zp" width="60" height="60" />
+          <img :src="scope.row.g_zp" width="60" height="60" />
         </template>
       </el-table-column>
       <el-table-column label="姓名" prop="g_name"></el-table-column>
@@ -61,7 +61,7 @@
             <el-input v-model="form.g_name"></el-input>
           </el-form-item>
           <el-form-item label="照片" width="120" v-model="form.g_zp">
-            <img :src="'http://'+form.g_zp" width="100" height="100" />
+            <img :src="form.g_zp" width="100" height="100" />
           </el-form-item>
           <el-form-item label="性别">
             <el-input v-model="form.g_xb"></el-input>
@@ -93,6 +93,7 @@
 <script>
 import { admin, seaadmin } from "../../network/staffadmin";
 export default {
+  inject: ["reload"],
   components: {},
   props: {},
   data() {
@@ -179,30 +180,38 @@ export default {
   methods: {
     // 搜索
     searchUser() {
-      // let params = {
-      //   g_name: this.isname
-      // };
-      // console.log(params);
-      // seaadmin("张三").then(res => {
-      //   console.log(res);
-      // });
-      if (this.isname != "") {
-        let all = this.tableData.filter(n => {
-          if (this.isname == n.name) {
-            return n;
-          }
-          //console.log(n.name);
-        });
-        this.istable = all;
-        if (this.istable == "") {
-          this.$layer.msg("抱歉，没有您查找的这个员工");
-        }
-      } else {
-        this.$layer.msg("您输入的为空，请重新输入");
-        setTimeout(() => {
-         // this.istable = this.istable;
-        }, 1000);
+      let params = {
+        g_name: this.isname
+      };
+      //console.log(params);
+      if (params.g_name == "") {
+        this.$layer.msg("您输入的内容为空，请检查后输入");
+        return;
       }
+      seaadmin(params).then(res => {
+        this.$layer.msg("抱歉，没有您查找的这个员工，3秒后自动刷新");
+        this.istable = res.data.staff;
+        setTimeout(() => {
+          this.reload();
+        }, 3000);
+      });
+      // if (this.isname != "") {
+      //   let all = this.tableData.filter(n => {
+      //     if (this.isname == n.name) {
+      //       return n;
+      //     }
+      //     //console.log(n.name);
+      //   });
+      //   this.istable = all;
+      //   if (this.istable == "") {
+      //     this.$layer.msg("抱歉，没有您查找的这个员工");
+      //   }
+      // } else {
+      //   this.$layer.msg("您输入的为空，请重新输入");
+      //   setTimeout(() => {
+      //     // this.istable = this.istable;
+      //   }, 1000);
+      // }
     },
     //查看
     editdata(i, e) {

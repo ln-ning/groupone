@@ -72,7 +72,7 @@
             <el-input v-model="name"></el-input>
           </el-form-item>
           <el-form-item label="照片" width="120">
-            <el-input aria-placeholder="暂时没有照片"></el-input>
+            <el-input placeholder="暂时没有照片"></el-input>
           </el-form-item>
           <el-form-item label="性别">
             <el-select v-model="sex" placeholder="请选择">
@@ -239,7 +239,7 @@ export default {
           department: "人资",
           post: "员工",
           url:
-            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+            "http://lmq.switchyl.online/static/img/20200618/0c6827c477c83356d29623b24ed7250f.png"
         },
         {
           name: "李四",
@@ -250,7 +250,7 @@ export default {
           department: "销售",
           post: "员工",
           url:
-            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+            "http://lmq.switchyl.online/static/img/20200618/0c6827c477c83356d29623b24ed7250f.png"
         },
         {
           name: "王二",
@@ -261,7 +261,7 @@ export default {
           department: "人资",
           post: "员工",
           url:
-            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+            "http://lmq.switchyl.online/static/img/20200618/0c6827c477c83356d29623b24ed7250f.png"
         },
         {
           name: "赵六",
@@ -272,7 +272,7 @@ export default {
           department: "销售",
           post: "员工",
           url:
-            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+            "http://lmq.switchyl.online/static/img/20200618/0c6827c477c83356d29623b24ed7250f.png"
         },
         {
           name: "李七",
@@ -283,7 +283,7 @@ export default {
           department: "人资",
           post: "员工",
           url:
-            "http://api.switchyl.online/public/Upload/img/2020-05-11/5eb91ecd7d93c.png"
+            "http://lmq.switchyl.online/static/img/20200618/0c6827c477c83356d29623b24ed7250f.png"
         }
       ],
       //搜索之后的数据

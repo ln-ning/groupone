@@ -6,9 +6,9 @@
       <el-table-column label="ID" prop="id" width="120"></el-table-column>
       <el-table-column label="名称" prop="m_name"></el-table-column>
       <el-table-column label="类型" prop="m_type">
-        <template
+        <!-- <template
           slot-scope="scope"
-        >{{ scope.row.m_type == 1 ? '部门' : scope.row.m_type == 2 ?'职位': '' }}</template>
+        >{{ scope.row.m_type == 1 ? '部门' : scope.row.m_type == 2 ?'职位': '' }}</template>-->
       </el-table-column>
       <el-table-column label="排序" prop="px" width="120"></el-table-column>
       <el-table-column label="操作" width="180">
@@ -80,10 +80,12 @@
             <el-input v-model="form.m_name"></el-input>
           </el-form-item>
           <el-form-item label="类型">
-            <el-radio-group v-model="form.m_type">
-              <el-radio :label="1">部门</el-radio>
-              <el-radio :label="2">职位</el-radio>
-            </el-radio-group>
+            <!-- <el-radio-group v-model="form.m_type">
+              <el-radio>部门</el-radio>
+              <el-radio>职位</el-radio>
+            </el-radio-group>-->
+            <el-radio v-model="form.m_type" label="1">部门</el-radio>
+            <el-radio v-model="form.m_type" label="2">职位</el-radio>
           </el-form-item>
           <el-form-item label="上级职位" v-if="form.m_type==2">
             <el-select v-model="sval" placeholder="请选择">
@@ -165,7 +167,7 @@ export default {
     };
     //console.log(params);
     deparadmin(params).then(res => {
-      //console.log(res.data);
+     // console.log(res.data);
       this.istable = res.data.data;
     });
   },
@@ -220,7 +222,7 @@ export default {
     editdata(i, e) {
       this.isedit = true;
       this.form = e[i];
-      console.log(this.form);
+      //  console.log(this.form);
       //console.log(e[i].id);
       //console.log(e[i].m_fid);
     },
