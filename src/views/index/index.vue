@@ -16,6 +16,7 @@
       <span class="header-btn">{{time}}</span>
       <!-- 右边功能 -->
       <div class="right">
+        <span class="header-btn" @click="qiandao">签到</span>
         <span class="header-btn" @click="screenfullToggle">
           <i class="fa fa-arrows-alt"></i>
         </span>
@@ -158,6 +159,7 @@
 </template>
 
 <script>
+import { qian } from "../../network/sign";
 import { cindex } from "../../network/index";
 import Menu from "../../navjs/index";
 import cfooter from "../../components/cfooter/cfooter";
@@ -191,12 +193,18 @@ export default {
       uid: this.$store.state.uid
     };
     cindex(params).then(res => {
-     // console.log(res.data);
+      // console.log(res.data);
     });
     this.currentTime();
     console.log("用户id为" + this.$store.state.uid);
   },
   methods: {
+    qiandao() {
+      qian().then(res => {
+        // console.log(res.data);
+        this.$layer.msg(res.data.info);
+      });
+    },
     reload() {
       this.isRouterAlive = false; //先关闭，
       this.$nextTick(function() {
@@ -244,14 +252,14 @@ export default {
       document.body.classList.toggle("gray-mode");
     },
     screenfullToggle() {
-      if (!Screenfull.enabled) {
-        this.$message({
-          message: "你的浏览器不支持全屏！",
-          type: "warning"
-        });
-        return false;
-      }
-      Screenfull.toggle();
+      //  if (!Screenfull.enabled) {
+      this.$message({
+        message: "你点个锤子，我不会做",
+        type: "warning"
+      });
+      // return false;
+      // }
+      //Screenfull.toggle();
     },
     saveFixedTabBar(v) {
       v
@@ -287,8 +295,8 @@ export default {
       this.NavBarWidth();
     },
     logout() {
-      sessionStorage.removeItem(this.$Config.tokenKey);
-      this.$router.push({ path: "/login" });
+      //sessionStorage.removeItem(this.$Config.tokenKey);
+      this.$router.push({ path: "/" });
     },
     handleOpen(key, keyPath) {
       //console.log(key, keyPath);

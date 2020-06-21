@@ -1,7 +1,7 @@
 <template>
   <div class="user-list">
     <el-button type="primary" icon="el-icon-plus" @click="appendLog = true"></el-button>
-    <el-table :data="usersData" border ref="table" style="width: 100%" >
+    <el-table :data="usersData" border ref="table" style="width: 100%">
       <el-table-column prop="name" label="姓名" align="center"></el-table-column>
       <el-table-column prop="tp" label="性别" align="center"></el-table-column>
       <el-table-column prop="age" label="年龄" align="center"></el-table-column>
@@ -15,17 +15,19 @@
         <template slot-scope="scope">
           <el-button
             class="user_look"
+            size="mini"
             type="primary"
             icon="el-icon-search"
-            size="mini"
             @click="look(scope.$index,scope.row)"
+            circle
           ></el-button>
           <el-button
             class="user_edit"
-            type="primary"
+            type="warning"
             icon="el-icon-edit"
             size="mini"
             @click="eidt(scope.$index,scope.row)"
+            circle
           ></el-button>
         </template>
       </el-table-column>
@@ -284,45 +286,6 @@ export default {
   components: {}
 };
 </script>
-<style lang="less">
-.el-button + .el-button {
-  margin-left: 0px;
-}
-.el-menu-demo {
-  display: block;
-  width: 500px;
-}
-.allTable {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: Center;
-  overflow: hidden;
-  .el-dialog {
-    margin: 20 auto !important;
-    height: 70%;
-    overflow: hidden;
-    .el-dialog__body {
-      position: absolute;
-      left: 0;
-      top: 54px;
-      bottom: 0;
-      right: 0;
-      padding: 0px 20px;
-      z-index: 1;
-      overflow: hidden;
-      overflow-y: auto;
-    }
-  }
-}
-.timeline {
-  margin-left: 20px;
-}
-.user_edit {
-  background: rgb(255, 184, 0);
-  border: none;
-}
-.user_look {
-  border: none;
-}
+<style  lang="less">
+@import "./users.less";
 </style>

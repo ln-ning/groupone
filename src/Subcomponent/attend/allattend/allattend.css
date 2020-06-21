@@ -1,0 +1,16 @@
+.top {
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.top .top-left {
+  float: left;
+}
+.top .top-right {
+  float: right;
+}
+.top .top-right .top-right-button {
+  margin-left: 10px;
+}
+.cell {
+  text-align: center;
+}

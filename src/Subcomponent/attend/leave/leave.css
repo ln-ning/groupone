@@ -1,0 +1,33 @@
+.body {
+  background: #fff;
+}
+.button {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #f6f6f6;
+  overflow: hidden;
+}
+.button .button-left {
+  float: left;
+  font-size: 20px;
+}
+.button .button-right {
+  float: right;
+  padding-right: 20px;
+}
+.button .button-right .button-right-button {
+  margin-left: 10px;
+}
+.cell > i {
+  font-size: 17px;
+  padding: 5px;
+  color: #fff;
+}
+.place .el-input {
+  width: 80%;
+}
+.place .el-textarea {
+  width: 80%;
+}

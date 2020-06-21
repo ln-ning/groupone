@@ -2,7 +2,7 @@
   <div class="all">
     <div class="top">
       <div class="top-left">
-        <el-button type="primary" @click="month">近一个月</el-button>
+        <el-button type="primary" @click="months">近一个月</el-button>
         <el-button type="primary" @click="week">近一星期</el-button>
         <el-button type="primary" @click="day">当天</el-button>
       </div>
@@ -13,22 +13,21 @@
       </div>
     </div>
     <div class="table">
-      <el-table :data="tableData" border style="width: 100%" class="el-table">
+      <el-table :data="firsttime" border style="width: 100%" class="el-table">
         <el-table-column fixed prop="name" label="姓名"></el-table-column>
         <el-table-column prop="time" label="时间"></el-table-column>
-        <el-table-column prop="province" label="上午上班时间"></el-table-column>
-        <el-table-column prop="city" label="上午下班时间"></el-table-column>
-        <el-table-column prop="address" label="下午上班时间"></el-table-column>
-        <el-table-column prop="zip" label="下午下班时间"></el-table-column>
-        <el-table-column prop="add" label="上午"></el-table-column>
-        <el-table-column prop="z" label="下午"></el-table-column>
+        <el-table-column prop="m_stime" label="上午上班时间"></el-table-column>
+        <el-table-column prop="m_xtime" label="上午下班时间"></el-table-column>
+        <el-table-column prop="a_stime" label="下午上班时间"></el-table-column>
+        <el-table-column prop="a_xtime" label="下午下班时间"></el-table-column>
+        <el-table-column prop="morn" label="上午"></el-table-column>
+        <el-table-column prop="aft" label="下午"></el-table-column>
       </el-table>
     </div>
   </div>
 </template>
 
 <script>
-import "@/Subcomponent/attend/allattend/allattend.less";
 export default {
   components: {},
   props: {},
@@ -38,234 +37,255 @@ export default {
       firsttime: [],
       tableData: [
         {
-          time: "2020-06-16",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
+          name: "张三",
+          time: "2020-04-10",
+          m_stime: "08:01:00",
+          m_xtime: "12:04:00",
+          a_stime: "14:05:00",
+          a_xtime: "18:02:00",
+          morn: "打游戏",
+          aft: "睡觉"
         },
         {
-          time: "2020-06-17",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
+          name: "李四",
+          time: "2020-06-10",
+          m_stime: "08:05:00",
+          m_xtime: "12:04:00",
+          a_stime: "14:00:00",
+          a_xtime: "18:00:00",
+          morn: "打游戏",
+          aft: "睡觉"
         },
         {
-          time: "2020-05-04",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
+          name: "王二",
+          time: "2020-06-20",
+          m_stime: "08:07:00",
+          m_xtime: "12:00:00",
+          a_stime: "14:00:00",
+          a_xtime: "18:00:00",
+          morn: "打游戏",
+          aft: "睡觉"
         },
         {
-          time: "2020-05-01",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
-        },
-        {
-          time: "2020-05-08",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
-        },
-        {
-          time: "2020-05-06",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
-        },
-        {
-          time: "2020-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
-        },
-         {
-          time: "2020-06-18",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
-        },
-         {
-          time: "2020-06-16",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333,
-          add: "旷工",
-          z: "请假"
+          name: "赵六",
+          time: "2020-06-21",
+          m_stime: "08:00:00",
+          m_xtime: "12:00:00",
+          a_stime: "14:00:00",
+          a_xtime: "18:00:00",
+          morn: "打游戏",
+          aft: "睡觉"
         }
       ],
       time1: "",
       time2: "",
-      gettime: ""
+      ct_month: "",
+      nowtime: ""
     };
   },
   created() {
     this.firsttime = this.tableData;
-    this.currentTime();
   },
   methods: {
     timesearch() {
-      //0 0
-      if (
-        (this.time1 == "" || this.time1 == null) &&
-        (this.time2 == "" || this.time2 == null)
-      ) {
-        this.firsttime = this.tableData;
-        // console.log(this.firsttime);
+      // console.log(this.time1);
+      // console.log(this.time2);
+      //都没有
+      if (this.time1 == "" && this.time2 == "") {
+        this.$layer.msg("请选择查询时间");
       }
-      //1 0
-      else if (this.time1 !== "" && (this.time2 == "" || this.time2 == null)) {
-        for (let i = 0; i < this.tableData.length; i++) {
-          let list = this.tableData.filter(n => {
-            if (n.time < this.time2) {
-              return n;
-            }
-          });
-          this.tableData = list;
-        }
-      }
-
-      //0 1
-      else if ((this.time1 == "" || this.time1 == null) && this.time2 != "") {
-        let list = this.tableData.filter(n => {
+      //开始没有
+      else if (this.time1 == "" && this.time2 != "") {
+        let all = this.tableData.filter(n => {
           if (n.time < this.time2) {
             return n;
           }
         });
-        this.tableData = list;
+        this.firsttime = all;
       }
-      // 1 1
-      else {
-        let list = this.tableData.filter(n => {
-          if (n.time < this.time2 && n.time > this.time1) {
+      //结束没有
+      else if (this.time1 != "" && this.time2 == "") {
+        let all = this.tableData.filter(n => {
+          if (n.time > this.time1) {
             return n;
           }
         });
-        this.tableData = list;
-        // console.log(list);
+        this.firsttime = all;
+      }
+      //都有
+      else {
+        let all = this.tableData.filter(n => {
+          if (n.time >= this.time1 && n.time <= this.time2) {
+            return n;
+          }
+        });
+        this.firsttime = all;
       }
     },
-    //近一个月
-    month() {
-      let times = new Date().getTime(); //当前时间
-      let old_times = times - 1000 * 60 * 60 * 24 * 30; //获取时间戳
-      let that = this;
-      let list = [];
-      let j = 0;
-      for (let i of that.tableData) {
-        if (
-          new Date(i.time).getTime() >= old_times &&
-          new Date(i.time).getTime() <= new Date().getTime()
-        ) {
-          list[j] = i;
-          j++;
-        }
+    //格式化函数
+    formatDate(now) {
+      var year = now.getFullYear(); //取得4位数的年份
+      var month = now.getMonth() + 1; //取得日期中的月份，其中0表示1月，11表示12月
+      var date = now.getDate(); //返回日期月份中的天数（1到31）
+      if (month < 10) {
+        month = "0" + month;
       }
-      console.log(list);
+      if (date < 10) {
+        date = "0" + date;
+      }
+      return year + "-" + month + "-" + date;
+    },
+    //近一个月
+    months() {
+      this.nowtime = new Date();
+      this.ct_month = new Date();
+      let monthday = this.ct_month.setTime(
+        this.ct_month.getTime() - 3600 * 1000 * 24 * 30
+      );
+      let nowday = this.ct_month.setTime(this.nowtime.getTime());
+      let action = new Date(nowday);
+      let end = new Date(monthday);
+      this.firsttime = this.tableData.filter(n => {
+        if (
+          n.time <= this.formatDate(action) &&
+          n.time > this.formatDate(end)
+        ) {
+          return n;
+        }
+      });
+      // this.nowtime = new Date();
+      // this.ct_month = new Date();
+      // let monthday = this.ct_month.setTime(
+      //   this.ct_month.getTime() - 3600 * 1000 * 24 * 30
+      // );
+      // let nowday = this.ct_month.setTime(this.nowtime.getTime());
+      // let action = new Date(nowday);
+      // let end = new Date(monthday);
+      // // console.log(this.formatDate(action));
+      // this.firsttime = this.tableData.filter(res => {
+      //   if (
+      //     res.time <= this.formatDate(action) &&
+      //     res.time > this.formatDate(end)
+      //   ) {
+      //     return res;
+      //   }
+      // });
+      // let times = new Date().getTime(); //当前时间
+      // let old_times = times - 1000 * 60 * 60 * 24 * 30; //获取时间戳
+      // let that = this;
+      // let list = [];
+      // let j = 0;
+      // for (let i of that.tableData) {
+      //   if (
+      //     new Date(i.time).getTime() >= old_times &&
+      //     new Date(i.time).getTime() <= new Date().getTime()
+      //   ) {
+      //     list[j] = i;
+      //     j++;
+      //   }
+      // }
+      // console.log(list);
 
-      this.tableData = list;
+      // this.tableData = list;
     },
     //近一周
     week() {
-      let times = new Date().getTime(); //当前时间
-      let old_times = times - 1000 * 60 * 60 * 24 * 7; //获取时间戳
-      let that = this;
-      let list = [];
-      let j = 0;
-      for (let i of that.tableData) {
+      this.nowtime = new Date();
+      this.ct_month = new Date();
+      let monthday = this.ct_month.setTime(
+        this.ct_month.getTime() - 3600 * 1000 * 24 * 7
+      );
+      let nowday = this.ct_month.setTime(this.nowtime.getTime());
+      let action = new Date(nowday);
+      let end = new Date(monthday);
+      this.firsttime = this.tableData.filter(n => {
         if (
-          new Date(i.time).getTime() >= old_times &&
-          new Date(i.time).getTime() <= new Date().getTime()
+          n.time <= this.formatDate(action) &&
+          n.time > this.formatDate(end)
         ) {
-          list[j] = i;
-          j++;
+          return n;
         }
-      }
-     
+      });
+      // let times = new Date().getTime(); //当前时间
+      // let old_times = times - 1000 * 60 * 60 * 24 * 7; //获取时间戳
+      // let that = this;
+      // let list = [];
+      // let j = 0;
+      // for (let i of that.tableData) {
+      //   if (
+      //     new Date(i.time).getTime() >= old_times &&
+      //     new Date(i.time).getTime() <= new Date().getTime()
+      //   ) {
+      //     list[j] = i;
+      //     j++;
+      //   }
+      // }
 
-      this.tableData = list;
+      // this.tableData = list;
     },
     //当天
     day() {
-      // for (let i = 0; i < this.tableData.length; i++) {
-      //   //console.log(this.tableData[i].time);
-      // }
-      let times = new Date().getTime(); //当前时间
-      let old_times = times - 1000 * 60 * 60 * 24; //获取时间戳
-      let that = this;
-      let list = [];
-      let j = 0;
-      for (let i of that.tableData) {
+      this.nowtime = new Date();
+      this.ct_month = new Date();
+      let monthday = this.ct_month.setTime(
+        this.ct_month.getTime() - 3600 * 1000 * 24
+      );
+      let nowday = this.ct_month.setTime(this.nowtime.getTime());
+      let action = new Date(nowday);
+      let end = new Date(monthday);
+      this.firsttime = this.tableData.filter(n => {
         if (
-          new Date(i.time).getTime() >= old_times &&
-          new Date(i.time).getTime() <= new Date().getTime()
+          n.time <= this.formatDate(action) &&
+          n.time > this.formatDate(end)
         ) {
-          list[j] = i;
-          j++;
+          return n;
         }
-      }
-    
+      });
+      // // for (let i = 0; i < this.tableData.length; i++) {
+      // //   //console.log(this.tableData[i].time);
+      // // }
+      // let times = new Date().getTime(); //当前时间
+      // let old_times = times - 1000 * 60 * 60 * 24; //获取时间戳
+      // let that = this;
+      // let list = [];
+      // let j = 0;
+      // for (let i of that.tableData) {
+      //   if (
+      //     new Date(i.time).getTime() >= old_times &&
+      //     new Date(i.time).getTime() <= new Date().getTime()
+      //   ) {
+      //     list[j] = i;
+      //     j++;
+      //   }
+      // }
 
-      this.tableData = list;
+      // this.tableData = list;
     },
     //获取当前时间
-    currentTime() {
-      setInterval(this.getTime, 500);
-    },
-    gettimes: function(datets) {
-      var that;
-      datets ? (that = datets) : (that = this);
-      var dates = new Date(that);
-      let yy = dates.getFullYear();
-      let mm = dates.getMonth() + 1;
-      let dd = dates.getDate();
-      return yy + "-" + mm + "-" + dd;
-    },
-    getTime: function() {
-      var _this = this;
+    // currentTime() {
+    //   setInterval(this.getTime, 500);
+    // },
+    // gettimes: function(datets) {
+    //   var that;
+    //   datets ? (that = datets) : (that = this);
+    //   var dates = new Date(that);
+    //   let yy = dates.getFullYear();
+    //   let mm = dates.getMonth() + 1;
+    //   let dd = dates.getDate();
+    //   return yy + "-" + mm + "-" + dd;
+    // },
+    // getTime: function() {
+    //   var _this = this;
 
-      var dates = new Date();
-      let yy = dates.getFullYear();
-      let mm = dates.getMonth() + 1;
-      let dd = dates.getDate();
-      this.gettime = yy + "-" + mm + "-" + dd;
-    }
+    //   var dates = new Date();
+    //   let yy = dates.getFullYear();
+    //   let mm = dates.getMonth() + 1;
+    //   let dd = dates.getDate();
+    //   this.gettime = yy + "-" + mm + "-" + dd;
+    // }
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
+@import "./allattend.less";
 </style>
