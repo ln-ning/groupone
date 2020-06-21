@@ -5,28 +5,27 @@
         <el-button type="primary" size="small" icon="el-icon-plus" @click="addcont = true"></el-button>
       </div>
       <div class="button-right">
-        <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd"></el-date-picker>-
-        <el-date-picker v-model="time2" type="date" value-format="yyyy-MM-dd"></el-date-picker>
+        <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd" ></el-date-picker>-
+        <el-date-picker v-model="time2" type="date" value-format="yyyy-MM-dd" ></el-date-picker>
         <el-button type="primary" class="button-right-button" @click="searchcon">搜索</el-button>
       </div>
     </div>
     <div class="table">
       <el-table :data="showtab" style="width: 100%">
-        <el-table-column label="发起人" prop="name" width="180"></el-table-column>
-        <el-table-column label="开始时间" prop="again" width="180"></el-table-column>
-        <el-table-column label="结束时间" prop="end"></el-table-column>
-        <el-table-column prop="allday" label="天数"></el-table-column>
-        <el-table-column prop="be" label="原因"></el-table-column>
-        <el-table-column prop="zip" label="类型">
+        <el-table-column label="发起人" prop="g_name" width="180"></el-table-column>
+        <el-table-column label="开始时间" prop="j_ksj" width="180"></el-table-column>
+        <el-table-column label="结束时间" prop="j_jsj"></el-table-column>
+        <el-table-column prop="j_ts" label="天数"></el-table-column>
+        <el-table-column prop="j_yy" label="原因"></el-table-column>
+        <!-- <el-table-column prop="zip" label="类型">
           <template
             slot-scope="scope"
           >{{ scope.row.zip == 1 ? '请假' : scope.row.zip == 2 ?'外出': '' }}</template>
-        </el-table-column>
-        <el-table-column label="状态">
-          <template slot-scope="scope">
-            <el-button type="warning" size="mini" @click="handleEdit(scope.$index, scope.row)">待审核</el-button>
-            <el-button type="success" size="mini" v-show="is_active">通过</el-button>
-          </template>
+        </el-table-column>-->
+        <el-table-column label="状态" prop="j_zt">
+          <!-- <template slot-scope="scope">
+            {{ scope.row.zip == 0 ? '待审核' : scope.row.zip == 1 ?'通过':scope.row.zip == 2 ? '拒绝' : '' }}
+          </template>-->
         </el-table-column>
         <el-table-column label="操作" class="table_i">
           <template slot-scope="scope">
@@ -56,9 +55,9 @@
             <el-form-item label="开始时间">
               <el-date-picker v-model="again" type="date" value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
-            <el-form-item label="结束时间">
+            <!-- <el-form-item label="结束时间">
               <el-date-picker v-model="end" type="date" value-format="yyyy-MM-dd"></el-date-picker>
-            </el-form-item>
+            </el-form-item>-->
             <el-form-item label="天数">
               <el-input v-model="allday"></el-input>
             </el-form-item>
@@ -84,14 +83,15 @@
       <div class="place">
         <el-form :model="form" :label-position="labelPosition">
           <el-form-item label="开始时间">
-            <el-input v-model="form.again"></el-input>
+            <!-- <el-input v-model="form.j_ksj"></el-input> -->
+            <el-date-picker v-model="form.j_ksj" type="date" value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
-          <el-form-item label="结束时间">
-            <el-input v-model="form.end"></el-input>
+          <el-form-item label="天数">
+            <el-input v-model="form.j_ts"></el-input>
           </el-form-item>
-          <el-form-item label="类型" v-model="form.zip">
-            <el-radio label="1" v-model="form.zip">请假</el-radio>
-            <el-radio label="2" v-model="form.zip">外出</el-radio>
+          <el-form-item label="类型">
+            <el-radio label="1" v-model="form.j_type">请假</el-radio>
+            <el-radio label="2" v-model="form.j_type">外出</el-radio>
             <!-- <el-select v-model="form.zip" placeholder="请选择">
               <el-option
                 v-for="item in typelist"
@@ -102,7 +102,7 @@
             </el-select>-->
           </el-form-item>
           <el-form-item label="原因">
-            <el-input v-model="form.be" type="textarea" :rows="2"></el-input>
+            <el-input v-model="form.j_yy" type="textarea" :rows="2"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import { leavelist, leaves, editleave } from "../../../network/leave";
 export default {
   inject: ["reload"],
   components: {},
@@ -127,44 +128,8 @@ export default {
       day: "",
       //table
       is_active: false,
-      tableData: [
-        {
-          name: "张三",
-          again: "2020-06-01",
-          end: "2020-06-20",
-          allday: "8",
-          be: "生病",
-          zip: 1,
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          name: "李四",
-          again: "2020-06-06",
-          end: "2020-06-30",
-          allday: "8",
-          be: "生病",
-          zip: 2,
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          name: "王二",
-          again: "2020-06-08",
-          end: "2020-06-21",
-          allday: "8",
-          be: "生病",
-          zip: 2,
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          name: "麻子",
-          again: "2020-05-20",
-          end: "2020-06-20",
-          allday: "8",
-          be: "生病",
-          zip: 1,
-          address: "上海市普陀区金沙江路 1518 弄"
-        }
-      ],
+      //请假信息
+      tableData: [],
       showtab: [],
       form: [],
       //弹框
@@ -193,30 +158,43 @@ export default {
     };
   },
   created() {
-    this.showtab = this.tableData;
+    let params = {
+      uid: this.$store.state.uid
+    };
+    leavelist(this.$store.state.uid).then(res => {
+      //  console.log(res.data.data);
+      this.tableData = res.data.data;
+      this.showtab = this.tableData;
+    });
   },
   methods: {
     //搜索
     searchcon() {
-      //console.log(this.time1);
-      //console.log(this.time2);
+      // console.log(this.time1);
+      // console.log(this.time2);
       //都没有
-      if (this.time1 == "" && this.time2 == "") {
-        this.$layer.msg("请选择查询时间");
+      if (
+        (this.time1 == "" || this.time1 == null) &&
+        (this.time2 == "" || this.time2 == null)
+      ) {
+        //console.log(1111);
+        // this.$layer.msg("请选择查询时间");
+        this.showtab = this.tableData;
       }
       //开始没有
-      else if (this.time1 == "" && this.time2 != "") {
+      else if ((this.time1 == "" || this.time1 == null) && this.time2 != "") {
         let all = this.tableData.filter(n => {
-          if (n.end < this.time2) {
+          console.log(n.j_jsj);
+          if (n.j_jsj < this.time2) {
             return n;
           }
         });
         this.showtab = all;
       }
       //结束没有
-      else if (this.time1 != "" && this.time2 == "") {
+      else if (this.time1 != "" && (this.time2 == "" || this.time2 == null)) {
         let all = this.tableData.filter(n => {
-          if (n.again > this.time1) {
+          if (n.j_ksj > this.time1) {
             return n;
           }
         });
@@ -225,7 +203,7 @@ export default {
       //都有
       else {
         let all = this.tableData.filter(n => {
-          if (n.again >= this.time1 && n.end <= this.time2) {
+          if (n.j_ksj >= this.time1 && n.j_jsj <= this.time2) {
             return n;
           }
         });
@@ -242,29 +220,41 @@ export default {
     //确定
     editsub() {
       let obj = {
-        again: this.form.again,
-        end: this.form.end,
-        zip: this.form.zip,
-        be: this.form.be
+        uid: this.$store.state.uid,
+        id: this.form.id,
+        j_ksj: this.form.j_ksj,
+        j_ts: this.form.j_ts,
+        j_yy: this.form.j_yy,
+        j_type: this.form.j_type
       };
-      console.log(obj);
+      // console.log(obj);
+      editleave(obj).then(res => {
+        //console.log(res.data);
+        this.editcont = false;
+      });
       // this.showtab.push(obj);
-      this.$layer.msg("老铁，这缺个接口");
-      this.editcont = false;
+      // this.$layer.msg("老铁，这缺个接口");
+      //
     },
     //申请外出
     addemp() {
       let obj = {
-        again: this.again,
-        end: this.end,
-        allday: this.allday,
-        zip: this.zip,
-        be: this.be
+        uid: this.$store.state.uid,
+        j_ksj: this.again,
+        // end: this.end,
+        j_ts: this.allday,
+        j_type: this.zip,
+        j_yy: this.be
       };
       console.log(obj);
-      this.showtab.push(obj);
-      this.addcont = false;
-      //this.reload();
+      leaves(obj).then(res => {
+        console.log(res);
+        //this.showtab.push(obj);
+        this.addcont = false;
+        this.reload();
+      });
+
+      //
     },
 
     //删除
