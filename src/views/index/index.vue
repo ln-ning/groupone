@@ -106,14 +106,27 @@
             @close="handleClose"
             :collapse="isCollapse"
           >
-            <template v-for="(menu_v,menu_k) in menu">
-              <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.name ">
+            <!-- <template v-for="item in ilist">
+              <el-submenu v-if="item.items" :index="item.l_name" :key="item.id">
+                <template>
+                  <span slot="title" @click="qqq">{{ item.l_name }}</span>
+                </template>
+                <el-menu-item v-for="citem in item.items" :key="citem.id" :index="ipath">
+                  <span slot="title" @click="qqq">{{ citem.l_name }}</span>
+                </el-menu-item>
+              </el-submenu>
+              <el-menu-item v-else :index="ipath" :key="item.id">
+                <span slot="title" @click="qqq">{{ item.l_name }}</span>
+              </el-menu-item>
+            </template> -->
+            <template v-for="(item,menu_k) in menu">
+              <el-submenu v-if="item.children" :index="menu_k" :key="item.name ">
                 <template slot="title">
-                  <i :class="menu_v.icon"></i>
-                  <span slot="title">{{ menu_v.name }}</span>
+                  <i :class="item.icon"></i>
+                  <span slot="title">{{ item.name }}</span>
                 </template>
                 <el-menu-item
-                  v-for="(menuChildren_v,menuChildren_k) in menu_v.children"
+                  v-for="(menuChildren_v,menuChildren_k) in item.children"
                   :key="menuChildren_k"
                   :index="menuChildren_v.path"
                 >
@@ -121,9 +134,9 @@
                   <span slot="title">{{ menuChildren_v.name }}</span>
                 </el-menu-item>
               </el-submenu>
-              <el-menu-item v-else :index="menu_v.path" :key="menu_v.name ">
-                <i :class="menu_v.icon"></i>
-                <span slot="title">{{ menu_v.name }}</span>
+              <el-menu-item v-else :index="item.path" :key="item.name ">
+                <i :class="item.icon"></i>
+                <span slot="title">{{ item.name }}</span>
               </el-menu-item>
             </template>
           </el-menu>
@@ -185,7 +198,8 @@ export default {
       isCollapse: false,
       menu: Menu,
       time: "",
-      ilist: []
+      ilist: [],
+      ipath: ""
     };
   },
   created() {
@@ -193,12 +207,42 @@ export default {
       uid: this.$store.state.uid
     };
     cindex(params).then(res => {
-      // console.log(res.data);
+      console.log(res.data.data);
+      this.ilist = res.data.data;
+      // for (let i in this.ilist) {
+      //   if (this.ilist[i].id == 64) {
+      //     //console.log(555);
+      //     //this.ipath == "/usersinfo";
+      //     this.$router.push("/usersinfo").catch(err => {});
+      //   }
+      //   //console.log(this.ilist[i].id);
+      // }
+
+      // if(this.ilist[0].id==64){
+      //     console.log(555)
+      // }
     });
     this.currentTime();
     console.log("用户id为" + this.$store.state.uid);
   },
   methods: {
+    qqq() {
+      for (let i in this.ilist) {
+        if (this.ilist[i].id == 64) {
+          this.ipath == "/usersinfo";
+          //this.$router.push("/usersinfo").catch(err => {});
+        }
+        if (this.ilist[i].id == 63) {
+          //this.$router.push("/usersinfo").catch(err => {});
+        }
+        if (this.ilist[i].id == 43) {
+          // this.$router.push("/leave").catch(err => {});
+        }
+        if (this.ilist[i].id == 52) {
+          // this.$router.push("/deparadmin").catch(err => {});
+        }
+      }
+    },
     qiandao() {
       qian().then(res => {
         // console.log(res.data);

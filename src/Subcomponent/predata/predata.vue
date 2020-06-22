@@ -6,7 +6,7 @@
         <el-form-item label="图片">
           <el-upload
             class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action=""
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { user } from "../../network/predata";
+import { user, edituser } from "../../network/predata";
 export default {
   components: {},
   props: {},
@@ -83,8 +83,27 @@ export default {
   methods: {
     // 提交
     submitForm() {
-      console.log(this.ruleForm);
-      this.$layer.msg("由于技术问题，暂时无法修改");
+      let params = {
+        id: this.$store.state.uid,
+        g_name: this.ruleForm.g_name,
+        g_xb: this.ruleForm.g_xb,
+        g_nl: this.ruleForm.g_nl,
+        g_sjh: this.ruleForm.g_sjh,
+        g_zp: this.ruleForm.g_zp,
+        g_dz: this.ruleForm.g_dz,
+        g_mz: this.ruleForm.g_mz,
+        g_sfz: this.ruleForm.g_sfz,
+        g_bmid: this.ruleForm.g_bmid,
+        g_zwid: this.ruleForm.g_zwid,
+        g_xl: this.ruleForm.g_xl
+      };
+      //console.log(params);
+      // edituser(params).then(res => {
+      //   console.log(res);
+      // });
+
+      // console.log(this.ruleForm);
+       this.$layer.msg("由于技术问题，暂时无法修改");
       // 弹框
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {

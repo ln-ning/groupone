@@ -7,8 +7,10 @@ import {
 export function leavelist(i) {
     return mylin({
         // method: 'post',
-        url: '/api/qj/qj?uid=' + i,
-        // data: i
+        url: '/api/qj/qj',
+        params: {
+            uid: i
+        }
     })
 }
 //请假

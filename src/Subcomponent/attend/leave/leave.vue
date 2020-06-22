@@ -5,8 +5,8 @@
         <el-button type="primary" size="small" icon="el-icon-plus" @click="addcont = true"></el-button>
       </div>
       <div class="button-right">
-        <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd"></el-date-picker>-
-        <el-date-picker v-model="time2" type="date" value-format="yyyy-MM-dd"></el-date-picker>
+        <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd" ></el-date-picker>-
+        <el-date-picker v-model="time2" type="date" value-format="yyyy-MM-dd" ></el-date-picker>
         <el-button type="primary" class="button-right-button" @click="searchcon">搜索</el-button>
       </div>
     </div>
@@ -211,7 +211,7 @@ export default {
       }
     },
     handleEdit(index, row) {},
-    //申请外出
+      //申请外出
     addemp() {
       let obj = {
         uid: this.$store.state.uid,
@@ -255,7 +255,7 @@ export default {
       // this.$layer.msg("老铁，这缺个接口");
       //
     },
-
+  
     //删除
     del(index, row) {
       row.splice(index, 1);
