@@ -14,7 +14,7 @@
         <el-table :data="tableData" border style="width:100%;margin-top:10px;">
           <el-table-column prop="id" label="id" width="200px" align="center"></el-table-column>
           <el-table-column prop="group" label="用户组名" width="200px" align="center"></el-table-column>
-          <el-table-column prop="qx" label="权限" width="700px" align="center"></el-table-column>
+          <el-table-column prop="qx" label="权限"  align="center"></el-table-column>
           <el-table-column prop="operation" label="操作" width="180px" align="center">
             <template slot-scope="scope">
               <el-button
