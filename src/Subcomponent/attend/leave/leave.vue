@@ -5,8 +5,8 @@
         <el-button type="primary" size="small" icon="el-icon-plus" @click="addcont = true"></el-button>
       </div>
       <div class="button-right">
-        <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd" ></el-date-picker>-
-        <el-date-picker v-model="time2" type="date" value-format="yyyy-MM-dd" ></el-date-picker>
+        <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd"></el-date-picker>-
+        <el-date-picker v-model="time2" type="date" value-format="yyyy-MM-dd"></el-date-picker>
         <el-button type="primary" class="button-right-button" @click="searchcon">搜索</el-button>
       </div>
     </div>
@@ -211,19 +211,19 @@ export default {
       }
     },
     handleEdit(index, row) {},
-      //申请外出
+    //申请外出
     addemp() {
       let obj = {
-        uid: this.$store.state.uid,
+        j_ygid: this.$store.state.uid,
         j_ksj: this.again,
         // end: this.end,
         j_ts: this.allday,
         j_type: this.zip,
         j_yy: this.be
       };
-      console.log(obj);
+      // console.log(obj);
       leaves(obj).then(res => {
-        console.log(res);
+        //  console.log(res);
         //this.showtab.push(obj);
         this.addcont = false;
         this.reload();
@@ -239,7 +239,7 @@ export default {
     //确定
     editsub() {
       let obj = {
-        uid: this.$store.state.uid,
+        j_ygid: this.$store.state.uid,
         id: this.form.id,
         j_ksj: this.form.j_ksj,
         j_ts: this.form.j_ts,
@@ -250,12 +250,13 @@ export default {
       editleave(obj).then(res => {
         //console.log(res.data);
         this.editcont = false;
+        this.reload();
       });
       // this.showtab.push(obj);
       // this.$layer.msg("老铁，这缺个接口");
       //
     },
-  
+
     //删除
     del(index, row) {
       row.splice(index, 1);

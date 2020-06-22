@@ -118,7 +118,7 @@
               <el-menu-item v-else :index="ipath" :key="item.id">
                 <span slot="title" @click="qqq">{{ item.l_name }}</span>
               </el-menu-item>
-            </template> -->
+            </template>-->
             <template v-for="(item,menu_k) in menu">
               <el-submenu v-if="item.children" :index="menu_k" :key="item.name ">
                 <template slot="title">
@@ -207,7 +207,7 @@ export default {
       uid: this.$store.state.uid
     };
     cindex(params).then(res => {
-      console.log(res.data.data);
+      // console.log(res.data.data);
       this.ilist = res.data.data;
       // for (let i in this.ilist) {
       //   if (this.ilist[i].id == 64) {
