@@ -5,8 +5,8 @@
         <el-button type="primary" size="small" icon="el-icon-plus" @click="addcont = true"></el-button>
       </div>
       <div class="button-right">
-        <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd" ></el-date-picker>-
-        <el-date-picker v-model="time2" type="date" value-format="yyyy-MM-dd" ></el-date-picker>
+        <el-date-picker v-model="time1" type="date" value-format="yyyy-MM-dd"></el-date-picker>-
+        <el-date-picker v-model="time2" type="date" value-format="yyyy-MM-dd"></el-date-picker>
         <el-button type="primary" class="button-right-button" @click="searchcon">搜索</el-button>
       </div>
     </div>
@@ -211,6 +211,25 @@ export default {
       }
     },
     handleEdit(index, row) {},
+    //申请外出
+    addemp() {
+      let obj = {
+        uid: this.$store.state.uid,
+        j_ksj: this.again,
+        // end: this.end,
+        j_ts: this.allday,
+        j_type: this.zip,
+        j_yy: this.be
+      };
+      console.log(obj);
+      leaves(obj).then(res => {
+        console.log(res);
+        //this.showtab.push(obj);
+        this.addcont = false;
+        this.reload();
+      });
+    },
+
     //编辑
     editdata(i, e) {
       this.editcont = true;
@@ -234,26 +253,6 @@ export default {
       });
       // this.showtab.push(obj);
       // this.$layer.msg("老铁，这缺个接口");
-      //
-    },
-    //申请外出
-    addemp() {
-      let obj = {
-        uid: this.$store.state.uid,
-        j_ksj: this.again,
-        // end: this.end,
-        j_ts: this.allday,
-        j_type: this.zip,
-        j_yy: this.be
-      };
-      console.log(obj);
-      leaves(obj).then(res => {
-        console.log(res);
-        //this.showtab.push(obj);
-        this.addcont = false;
-        this.reload();
-      });
-
       //
     },
 
