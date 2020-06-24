@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { attend } from "../../../network/allattend";
 export default {
   components: {},
   props: {},
@@ -87,9 +88,18 @@ export default {
     this.firsttime = this.tableData;
   },
   methods: {
+    //按时间搜索
     timesearch() {
       // console.log(this.time1);
       // console.log(this.time2);
+      let params = {
+        sj: this.time1,
+        sj1: this.time2
+      };
+      console.log(params);
+      attend(params).then(res => {
+        console.log(res.data);
+      });
       //都没有
       if (this.time1 == "" && this.time2 == "") {
         this.$layer.msg("请选择查询时间");
@@ -153,40 +163,6 @@ export default {
           return n;
         }
       });
-      // this.nowtime = new Date();
-      // this.ct_month = new Date();
-      // let monthday = this.ct_month.setTime(
-      //   this.ct_month.getTime() - 3600 * 1000 * 24 * 30
-      // );
-      // let nowday = this.ct_month.setTime(this.nowtime.getTime());
-      // let action = new Date(nowday);
-      // let end = new Date(monthday);
-      // // console.log(this.formatDate(action));
-      // this.firsttime = this.tableData.filter(res => {
-      //   if (
-      //     res.time <= this.formatDate(action) &&
-      //     res.time > this.formatDate(end)
-      //   ) {
-      //     return res;
-      //   }
-      // });
-      // let times = new Date().getTime(); //当前时间
-      // let old_times = times - 1000 * 60 * 60 * 24 * 30; //获取时间戳
-      // let that = this;
-      // let list = [];
-      // let j = 0;
-      // for (let i of that.tableData) {
-      //   if (
-      //     new Date(i.time).getTime() >= old_times &&
-      //     new Date(i.time).getTime() <= new Date().getTime()
-      //   ) {
-      //     list[j] = i;
-      //     j++;
-      //   }
-      // }
-      // console.log(list);
-
-      // this.tableData = list;
     },
     //近一周
     week() {
@@ -206,22 +182,6 @@ export default {
           return n;
         }
       });
-      // let times = new Date().getTime(); //当前时间
-      // let old_times = times - 1000 * 60 * 60 * 24 * 7; //获取时间戳
-      // let that = this;
-      // let list = [];
-      // let j = 0;
-      // for (let i of that.tableData) {
-      //   if (
-      //     new Date(i.time).getTime() >= old_times &&
-      //     new Date(i.time).getTime() <= new Date().getTime()
-      //   ) {
-      //     list[j] = i;
-      //     j++;
-      //   }
-      // }
-
-      // this.tableData = list;
     },
     //当天
     day() {
@@ -241,48 +201,7 @@ export default {
           return n;
         }
       });
-      // // for (let i = 0; i < this.tableData.length; i++) {
-      // //   //console.log(this.tableData[i].time);
-      // // }
-      // let times = new Date().getTime(); //当前时间
-      // let old_times = times - 1000 * 60 * 60 * 24; //获取时间戳
-      // let that = this;
-      // let list = [];
-      // let j = 0;
-      // for (let i of that.tableData) {
-      //   if (
-      //     new Date(i.time).getTime() >= old_times &&
-      //     new Date(i.time).getTime() <= new Date().getTime()
-      //   ) {
-      //     list[j] = i;
-      //     j++;
-      //   }
-      // }
-
-      // this.tableData = list;
-    },
-    //获取当前时间
-    // currentTime() {
-    //   setInterval(this.getTime, 500);
-    // },
-    // gettimes: function(datets) {
-    //   var that;
-    //   datets ? (that = datets) : (that = this);
-    //   var dates = new Date(that);
-    //   let yy = dates.getFullYear();
-    //   let mm = dates.getMonth() + 1;
-    //   let dd = dates.getDate();
-    //   return yy + "-" + mm + "-" + dd;
-    // },
-    // getTime: function() {
-    //   var _this = this;
-
-    //   var dates = new Date();
-    //   let yy = dates.getFullYear();
-    //   let mm = dates.getMonth() + 1;
-    //   let dd = dates.getDate();
-    //   this.gettime = yy + "-" + mm + "-" + dd;
-    // }
+    }
   }
 };
 </script>

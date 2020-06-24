@@ -39,7 +39,13 @@
       <el-table-column label="职位" prop="post"></el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-search" circle size="mini"></el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            circle
+            @click.native.prevent="lookdata(scope.$index,istable)"
+            size="mini"
+          ></el-button>
           <el-button
             type="primary"
             icon="el-icon-edit"
@@ -120,7 +126,7 @@
         <el-button @click="addcont = false">取 消</el-button>
       </div>
     </el-dialog>
-    <!-- 弹窗框 -->
+    <!--查看弹窗框 -->
     <el-dialog title="员工信息" :visible.sync="dialogFormVisible">
       <div class="place">
         <el-form :model="form" :label-position="labelPosition" label-width="100px">
@@ -372,6 +378,12 @@ export default {
       //     this.istable = this.tableData;
       //   }, 1000);
       // }
+    },
+
+    //查看
+    lookdata(i, e) {
+      this.dialogFormVisible = true;
+      this.form = e[i];
     },
     //编辑
     editdata(i, e) {

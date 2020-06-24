@@ -19,7 +19,10 @@
           >{{ scope.row.zip == 1 ? '请假' : scope.row.zip == 2 ?'外出': '' }}</template>
         </el-table-column>
         <el-table-column label="状态">
-          <template slot-scope="scope">
+          <!-- <template
+            slot-scope="scope"
+          >{{ scope.row.zip == 1 ? '通过' : scope.row.zip == 2 ?'未通过': '' }}</template> -->
+          <template>
             <el-button type="warning" size="mini">待审核</el-button>
             <el-button type="success" size="mini" v-show="is_active">通过</el-button>
           </template>
@@ -44,11 +47,13 @@
 </template>
 
 <script>
+import { zt } from "../../../network/proval";
 export default {
   components: {},
   props: {},
   data() {
     return {
+      //数据源
       tableData: [
         {
           name: "张三",
@@ -92,6 +97,14 @@ export default {
     };
   },
   created() {
+    // let params = {
+    //   uid: 10,
+    //   zt: 2,
+    //   id: 10
+    // };
+    // zt(params).then(res => {
+    //   console.log(res);
+    // });
     this.showtab = this.tableData;
   },
   methods: {
