@@ -2,15 +2,10 @@
   <div class="big">
     <div class="bgColor">
       <header>设置我的资料</header>
-      <el-form :model="{ruleForm}" label-width="100px" class="demo-ruleForm">
+      <el-form :model="{ruleForm}" ref="editFormRef" label-width="100px" class="demo-ruleForm">
         <el-form-item label="图片">
-          <el-upload
-            class="avatar-uploader"
-            action=""
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-          >
+          <el-upload class="avatar-uploader" action="" :show-file-list="false" :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload">
             <img v-if="ruleForm.g_zp" :src="ruleForm.g_zp" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
@@ -62,76 +57,77 @@
 </template>
 
 <script>
-import { user, edituser } from "../../network/predata";
-export default {
-  components: {},
-  props: {},
-  data() {
-    return {
-      ruleForm: []
-    };
-  },
-  created() {
-    let params = {
-      id: this.$store.state.uid
-    };
-    user(params).then(res => {
-      // console.log(res.data.data);
-      this.ruleForm = res.data.data;
-    });
-  },
-  methods: {
-    // 提交
-    submitForm() {
-      let params = {
-        id: this.$store.state.uid,
-        g_name: this.ruleForm.g_name,
-        g_xb: this.ruleForm.g_xb,
-        g_nl: this.ruleForm.g_nl,
-        g_sjh: this.ruleForm.g_sjh,
-        g_zp: this.ruleForm.g_zp,
-        g_dz: this.ruleForm.g_dz,
-        g_mz: this.ruleForm.g_mz,
-        g_sfz: this.ruleForm.g_sfz,
-        g_bmid: this.ruleForm.g_bmid,
-        g_zwid: this.ruleForm.g_zwid,
-        g_xl: this.ruleForm.g_xl
+  import {
+    user,
+    edituser
+  } from "../../network/predata";
+  export default {
+    components: {},
+    props: {},
+    data() {
+      return {
+        ruleForm: []
       };
-      //console.log(params);
-      // edituser(params).then(res => {
-      //   console.log(res);
-      // });
-
-      // console.log(this.ruleForm);
-       this.$layer.msg("由于技术问题，暂时无法修改");
-      // 弹框
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     alert('修改成功');
-      //   } else {
-      //     return false;
-      //   }
-      // });
     },
-    // 图片上传
-    handleAvatarSuccess(res, file) {
-      this.ruleForm.g_zp = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+    created() {
+      let params = {
+        id: this.$store.state.uid
+      };
+      user(params).then(res => {
+        // console.log(res.data.data);
+        this.ruleForm = res.data.data;
+      });
 
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+    },
+    methods: {
+      // 提交
+      submitForm() {
+        let params = {
+          id: this.$store.state.uid,
+          g_name: this.ruleForm.g_name,
+          g_xb: this.ruleForm.g_xb,
+          g_nl: this.ruleForm.g_nl,
+          g_sjh: this.ruleForm.g_sjh,
+          g_zp: this.ruleForm.g_zp,
+          g_dz: this.ruleForm.g_dz,
+          g_mz: this.ruleForm.g_mz,
+          g_sfz: this.ruleForm.g_sfz,
+          g_bmid: this.ruleForm.g_bmid,
+          g_zwid: this.ruleForm.g_zwid,
+          g_xl: this.ruleForm.g_xl
+        };
+        edituser(params).then(res => {
+          console.log(res.data);
+          this.$layer.msg("修改成功");
+        })
+        //console.log(params);
+        // edituser(params).then(res => {
+        //   console.log(res);
+        // });
+
+        // console.log(this.ruleForm);
+        //  this.$layer.msg("由于技术问题，暂时无法修改");
+
+      },
+      // 图片上传
+      handleAvatarSuccess(res, file) {
+        this.ruleForm.g_zp = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === "image/jpeg";
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error("上传头像图片只能是 JPG 格式!");
+        }
+        if (!isLt2M) {
+          this.$message.error("上传头像图片大小不能超过 2MB!");
+        }
+        return isJPG && isLt2M;
       }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
     }
-  }
-};
+  };
 </script>
 <style scoped>
-@import "./predata.css";
+  @import "./predata.css";
 </style>
