@@ -387,7 +387,7 @@ export default {
     },
     //编辑
     editdata(i, e) {
-      this.edit = true;
+      this.addcont = true;
       this.form = e[i];
     },
     // 分页
