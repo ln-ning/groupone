@@ -90,8 +90,12 @@
             <el-input v-model="form.j_ts"></el-input>
           </el-form-item>
           <el-form-item label="类型">
-            <el-radio label="1" v-model="form.j_type">请假</el-radio>
-            <el-radio label="2" v-model="form.j_type">外出</el-radio>
+            <!-- <el-radio label="1" v-model="form.j_type">请假</el-radio>
+            <el-radio label="2" v-model="form.j_type">外出</el-radio>-->
+            <el-radio-group v-model="form.j_type">
+              <el-radio label="请假"></el-radio>
+              <el-radio label="外出"></el-radio>
+            </el-radio-group>
             <!-- <el-select v-model="form.zip" placeholder="请选择">
               <el-option
                 v-for="item in typelist"

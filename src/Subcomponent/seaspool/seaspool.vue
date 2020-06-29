@@ -36,35 +36,35 @@
         <el-tab-pane label="用户信息" name="first">
           <el-form :label-position="labelPosition" label-width="80px" :model="lookform">
             <el-form-item label="姓名">
-              <el-input :value="lookform.name"></el-input>
+              <el-input :value="lookform.y_name"></el-input>
             </el-form-item>
             <el-form-item label="性别">
-              <el-radio-group v-model="lookform.tp">
+              <el-radio-group v-model="lookform.y_xb">
                 <el-radio label="男"></el-radio>
                 <el-radio label="女"></el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="年龄">
-              <el-input :value="lookform.age"></el-input>
+              <el-input :value="lookform.y_nl"></el-input>
             </el-form-item>
             <el-form-item label="地址">
-              <el-input :value="lookform.place"></el-input>
+              <el-input :value="lookform.y_dz"></el-input>
             </el-form-item>
             <el-form-item label="电话">
-              <el-input :value="lookform.cellphone"></el-input>
+              <el-input :value="lookform.y_sjh"></el-input>
             </el-form-item>
             <el-form-item label="微信">
-              <el-input :value="lookform.wx"></el-input>
+              <el-input :value="lookform.y_wx"></el-input>
             </el-form-item>
             <el-form-item label="QQ">
-              <el-input :value="lookform.QQ"></el-input>
+              <el-input :value="lookform.y_qq"></el-input>
             </el-form-item>
-            <el-form-item label="创建人">
-              <el-input :value="site"></el-input>
+            <!-- <el-form-item label="创建人">
+              <el-input :value="cjr"></el-input>
             </el-form-item>
             <el-form-item label="创建时间">
-              <el-input :value="time"></el-input>
-            </el-form-item>
+              <el-input :value="y_sj"></el-input>
+            </el-form-item> -->
             <el-form-item label="所属">
               <el-input :value="lookform.type"></el-input>
             </el-form-item>
@@ -157,7 +157,7 @@ export default {
         }
       ],
       isdata: [],
-      lookform: {},
+      lookform: [],
       activities: [
         {
           content: "这是一个进程",
@@ -199,14 +199,15 @@ export default {
     };
     // console.log(params);
     allpool(params).then(res => {
-      console.log(res.data);
+      //  console.log(res.data);
       this.isdata = res.data;
     });
   },
   methods: {
-    look(a, b) {
+    look(i, row) {
+      console.log(row);
       this.dialogTableVisible = true;
-      this.lookform = b;
+      this.lookform = row;
     },
     subChange(index) {
       this.edit = false;
