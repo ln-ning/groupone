@@ -1,16 +1,17 @@
 <template>
   <div class="user-list">
     <!-- <el-button type="primary" icon="el-icon-plus" @click="appendLog = true"></el-button> -->
-    <el-table :data="usersData" border ref="table" style="width: 100%" >
-      <el-table-column prop="name" label="姓名" align="center"></el-table-column>
-      <el-table-column prop="tp" label="性别" align="center"></el-table-column>
-      <el-table-column prop="age" label="年龄" align="center"></el-table-column>
-      <el-table-column prop="cellphone" label="手机号" align="center"></el-table-column>
-      <el-table-column prop="place" label="地址" align="center"></el-table-column>
-      <el-table-column prop="wx" label="微信" align="center"></el-table-column>
-      <el-table-column prop="QQ" label="QQ" align="center"></el-table-column>
-      <el-table-column prop="time" label="创建时间" align="center">2020-06-15</el-table-column>
-      <el-table-column prop="site" label="创建人" align="center">admin</el-table-column>
+    <el-table :data="isdata" border ref="table" style="width: 100%">
+      <el-table-column prop="id" label="ID" align="center" width="80"></el-table-column>
+      <el-table-column prop="y_name" label="姓名" align="center"></el-table-column>
+      <el-table-column prop="y_xb" label="性别" align="center" width="80"></el-table-column>
+      <el-table-column prop="y_nl" label="年龄" align="center" width="80"></el-table-column>
+      <el-table-column prop="y_sjh" label="手机号" align="center"></el-table-column>
+      <el-table-column prop="y_dz" label="地址" align="center"></el-table-column>
+      <el-table-column prop="y_wx" label="微信" align="center"></el-table-column>
+      <el-table-column prop="y_qq" label="QQ" align="center"></el-table-column>
+      <el-table-column prop="y_sj" label="创建时间" align="center"></el-table-column>
+      <el-table-column prop="cjr" label="创建人" align="center"></el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
           <el-button
@@ -24,12 +25,12 @@
             class="user_edit"
             type="primary"
             size="mini"
-            @click="apply"
-            
+            @click="apply(scope.$index,scope.row)"
           >申领</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <!-- 查看信息 -->
     <el-dialog width="500px" title="用户信息" class="allTable" :visible.sync="dialogTableVisible">
       <el-tabs v-model="activeName">
         <el-tab-pane label="用户信息" name="first">
@@ -90,12 +91,13 @@
         </el-tab-pane>
       </el-tabs>
     </el-dialog>
-   
   </div>
 </template>
 
 <script>
+import { allpool, slpool } from "../../network/seaspool";
 export default {
+  inject: ["reload"],
   data() {
     return {
       params: {
@@ -154,6 +156,7 @@ export default {
           active: 0
         }
       ],
+      isdata: [],
       lookform: {},
       activities: [
         {
@@ -190,6 +193,16 @@ export default {
       index: ""
     };
   },
+  created() {
+    let params = {
+      uid: this.$store.state.uid
+    };
+    // console.log(params);
+    allpool(params).then(res => {
+      console.log(res.data);
+      this.isdata = res.data;
+    });
+  },
   methods: {
     look(a, b) {
       this.dialogTableVisible = true;
@@ -199,13 +212,22 @@ export default {
       this.edit = false;
       this.usersData.splice(index, 1, this.editForm);
     },
-    apply(){
-      this.$layer.msg("别点了，我不会")
+    apply(index, row) {
+      let params = {
+        uid: this.$store.state.uid,
+        id: row.id
+      };
+      console.log(params);
+      slpool(params).then(res => {
+        //console.log(res.data);
+        this.$layer.msg(res.data.info);
+        this.reload();
+      });
     }
   },
   components: {}
 };
 </script>
 <style scoped lang="less">
-@import './seaspool.less';
+@import "./seaspool.less";
 </style>
