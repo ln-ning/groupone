@@ -11,7 +11,7 @@
     "core-js": "^2.6.5",
     "element-ui": "^2.13.2",
     "font-awesome": "^4.7.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "vue": "^2.6.10",
     "vue-layer": "^1.2.0",
     "vue-router": "^3.0.3",
